@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>Ami's Little Corner - Series</title>
+  <title>Ami's Little Corner - Schedule</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600;7..72,700&family=Inter:wght@400;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
   <script id="tailwind-config">
@@ -13,7 +13,6 @@
         extend: {
           colors: {
             "background": "#fef7ff",
-            "surface": "#fef7ff",
             "surface-container-lowest": "#ffffff",
             "surface-container-low": "#f9f0ff",
             "surface-container": "#f4eafd",
@@ -25,16 +24,11 @@
             "on-background": "#1e1927",
             "primary": "#461599",
             "on-primary": "#ffffff",
-            "primary-container": "#5e35b1",
             "primary-fixed": "#eaddff",
-            "secondary": "#6d4ea2",
-            "on-secondary": "#ffffff",
             "secondary-container": "#c5a3ff",
             "on-secondary-container": "#533487",
             "outline": "#7b7484",
             "outline-variant": "#cbc3d5",
-            "error": "#ba1a1a",
-            "on-error": "#ffffff",
           },
           borderRadius: {
             "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"
@@ -62,13 +56,13 @@
   </script>
   <style>
     body { background-color: #f5f0fc; color: #1e1927; }
-    .editorial-card {
-      box-shadow: 0 4px 20px -4px rgba(70, 21, 153, 0.04);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    .paper-layer {
+      box-shadow: 0 4px 20px -2px rgba(84, 53, 137, 0.04);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .editorial-card:hover {
+    .paper-layer:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 24px -8px rgba(70, 21, 153, 0.08);
+      box-shadow: 0 12px 30px -5px rgba(84, 53, 137, 0.08);
     }
     .material-symbols-outlined {
       font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -76,59 +70,26 @@
       font-style: normal;
       vertical-align: middle;
     }
-    .progress-bar-fill {
-      height: 100%;
-      background-color: #461599;
-      border-radius: 9999px;
-      transition: width 0.3s ease;
-    }
-    #search-bar {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease, opacity 0.3s ease;
-      opacity: 0;
-    }
-    #search-bar.open {
-      max-height: 80px;
-      opacity: 1;
-    }
+    .badge-today    { background: #7c4fa0; color: #fff; font-weight: 700; }
+    .badge-tomorrow { background: #ede7f6; color: #461599; }
+    .badge-soon     { background: #f3e5f5; color: #6a3fa0; }
+    .badge-past     { background: #f0f0f0; color: #888; }
+    .badge-future   { background: #e8eaf6; color: #3949ab; }
   </style>
 </head>
-<body class="font-body-md text-body-md">
+<body class="font-body-md text-body-md antialiased">
 
   <!-- Top Nav -->
-  <header class="w-full bg-background sticky top-0 z-50">
-    <div class="h-20 flex justify-between items-center max-w-[1200px] mx-auto px-container-padding">
-      <div class="font-headline-md text-headline-md font-bold text-primary">Ami's Little Corner</div>
-      <nav class="hidden md:flex items-center gap-gutter">
-        <a class="text-on-surface-variant font-medium pb-1 hover:text-primary transition-colors cursor-pointer" href="index.html">Books</a>
-        <a class="text-primary font-bold border-b-2 border-primary pb-1 cursor-pointer" href="series.html">Series</a>
-        <a class="text-on-surface-variant font-medium pb-1 hover:text-primary transition-colors cursor-pointer" href="schedule.html">Schedule</a>
-      </nav>
-      <div class="flex items-center gap-stack-md">
-        <button id="search-toggle" class="p-2 rounded-full hover:bg-surface-container transition-colors" title="Search series">
-          <span class="material-symbols-outlined text-on-surface-variant" id="search-icon">search</span>
-        </button>
-        <button class="p-2 rounded-full hover:bg-surface-container transition-colors">
-          <span class="material-symbols-outlined text-primary">account_circle</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Slide-down Search Bar -->
-    <div id="search-bar" class="max-w-[1200px] mx-auto px-container-padding">
-      <div class="flex items-center gap-stack-md bg-surface-container-lowest border border-outline-variant rounded-xl px-4 py-2 mb-3 shadow-sm">
-        <span class="material-symbols-outlined text-primary text-[20px]">search</span>
-        <input
-          id="search-input"
-          type="text"
-          placeholder="Search by title, platform, or status…"
-          class="flex-grow bg-transparent focus:outline-none font-body-md text-on-surface placeholder:text-on-surface-variant/60"
-        />
-        <span id="search-count" class="font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap hidden"></span>
-        <button id="search-clear" class="text-on-surface-variant hover:text-primary transition-colors hidden" title="Clear search">
-          <span class="material-symbols-outlined text-[20px]">close</span>
-        </button>
+  <header class="w-full h-20 bg-background flex justify-between items-center max-w-[1200px] mx-auto px-container-padding sticky top-0 z-50">
+    <div class="font-headline-md text-headline-md font-bold text-primary">Ami's Little Corner</div>
+    <nav class="hidden md:flex items-center gap-stack-lg">
+      <a class="text-on-surface-variant font-medium pb-1 hover:text-primary transition-colors cursor-pointer" href="index.html">Books</a>
+      <a class="text-on-surface-variant font-medium pb-1 hover:text-primary transition-colors cursor-pointer" href="series.html">Series</a>
+      <a class="text-primary font-bold border-b-2 border-primary pb-1 cursor-pointer" href="schedule.html">Schedule</a>
+    </nav>
+    <div class="flex items-center gap-stack-md">
+      <div class="cursor-pointer text-primary p-2 rounded-full hover:bg-surface-container transition-colors">
+        <span class="material-symbols-outlined">account_circle</span>
       </div>
     </div>
   </header>
@@ -136,113 +97,58 @@
   <main class="max-w-[1200px] mx-auto px-container-padding py-section-gap">
 
     <!-- Page Header -->
-    <div class="mb-section-gap">
-      <h2 class="font-headline-xl text-headline-xl text-on-surface mb-stack-sm">Current Watchlist</h2>
-      <p class="text-on-surface-variant font-body-lg text-body-lg">Curating the stories that move you, one episode at a time.</p>
+    <div class="mb-section-gap max-w-2xl">
+      <h1 class="font-headline-xl text-headline-xl text-on-surface mb-stack-md">Upcoming Episodes</h1>
+      <p class="font-body-lg text-body-lg text-on-surface-variant italic">
+        All your series with upcoming episodes, sorted by date. Set next episode dates in the Series tab!
+      </p>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-section-gap">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
 
-      <!-- Left: Series List -->
-      <div class="lg:col-span-7">
+      <!-- Sidebar -->
+      <div class="md:col-span-3">
+        <div class="sticky top-28 p-stack-lg bg-surface-container-low rounded-xl paper-layer">
+          <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary block mb-stack-sm">Summary</span>
+          <h2 class="font-headline-md text-headline-md text-on-surface" id="sidebar-month">This Month</h2>
 
-        <!-- Filter Pills -->
-        <div class="flex gap-stack-sm flex-wrap mb-gutter">
-          <button onclick="filterSeries('all')" class="filter-btn px-4 py-1 rounded-full text-label-sm border border-primary text-primary font-semibold transition-all" data-filter="all">All</button>
-          <button onclick="filterSeries('Watching')" class="filter-btn px-4 py-1 rounded-full text-label-sm border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all" data-filter="Watching">Watching</button>
-          <button onclick="filterSeries('Completed')" class="filter-btn px-4 py-1 rounded-full text-label-sm border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all" data-filter="Completed">Completed</button>
-          <button onclick="filterSeries('Dropped')" class="filter-btn px-4 py-1 rounded-full text-label-sm border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all" data-filter="Dropped">Dropped</button>
-        </div>
-
-        <!-- Empty State -->
-        <div id="empty-state" style="text-align:center;padding:3rem 1rem;color:#7b7484;font-style:italic;display:none;">
-          <p style="font-size:2rem;">🎬</p>
-          <p class="mt-2" id="empty-msg">No series yet — add one from the form!</p>
-        </div>
-
-        <!-- Series Cards -->
-        <div class="space-y-gutter" id="series-list"></div>
-      </div>
-
-      <!-- Right: Add Form -->
-      <div class="lg:col-span-5">
-        <div class="sticky top-28 bg-surface-container-lowest editorial-card rounded-xl p-stack-lg border border-surface-container">
-          <h3 class="font-headline-md text-headline-md text-on-surface mb-stack-lg">Add New Series</h3>
-
-          <div class="space-y-stack-md">
-            <div class="flex gap-gutter">
-              <!-- Cover Upload -->
-              <label class="w-32 h-44 shrink-0 bg-surface-container-low border-2 border-dashed border-outline-variant rounded-lg flex flex-col items-center justify-center cursor-pointer hover:bg-surface-container transition-colors group" id="s-cover-label">
-                <img id="s-cover-preview" src="" alt="" class="hidden w-full h-full object-cover rounded-lg"/>
-                <span class="material-symbols-outlined text-outline group-hover:text-primary" id="s-cover-icon">add_photo_alternate</span>
-                <span class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-primary text-center px-1" id="s-cover-text">+ Add Cover</span>
-                <input type="file" accept="image/*" id="s-cover-input" class="hidden"/>
-              </label>
-
-              <div class="flex-grow space-y-stack-md">
-                <div>
-                  <label class="block text-label-sm text-on-surface-variant mb-1">Title</label>
-                  <input id="s-title" class="w-full bg-white border border-outline-variant rounded-lg p-2 focus:outline-none focus:border-primary font-body-md" placeholder="Series name" type="text"/>
-                </div>
-                <div>
-                  <label class="block text-label-sm text-on-surface-variant mb-1">Platform</label>
-                  <select id="s-platform" class="w-full bg-white border border-outline-variant rounded-lg p-2 focus:outline-none focus:border-primary font-body-md">
-                    <option value="">Select Platform</option>
-                    <option>Netflix</option>
-                    <option>Disney+</option>
-                    <option>Hulu</option>
-                    <option>Apple TV+</option>
-                    <option>HBO Max</option>
-                    <option>Amazon Prime</option>
-                    <option>Viki</option>
-                    <option>Kisskh</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="block text-label-sm text-on-surface-variant mb-1">Status</label>
-                  <select id="s-status" class="w-full bg-white border border-outline-variant rounded-lg p-2 focus:outline-none focus:border-primary font-body-md">
-                    <option value="Watching">Watching</option>
-                    <option value="Completed">Completed</option>
-                    <option value="Dropped">Dropped</option>
-                    <option value="Plan to Watch">Plan to Watch</option>
-                  </select>
-                </div>
-              </div>
+          <div class="mt-stack-lg flex flex-col gap-stack-md" id="sidebar-stats">
+            <div class="flex items-center gap-stack-md text-on-surface-variant">
+              <span class="w-2 h-2 rounded-full bg-primary inline-block"></span>
+              <span class="font-label-sm text-label-sm" id="stat-upcoming">0 upcoming</span>
             </div>
-
-            <div>
-              <label class="block text-label-sm text-on-surface-variant mb-1">Description (optional)</label>
-              <textarea id="s-desc" class="w-full bg-white border border-outline-variant rounded-lg p-2 focus:outline-none focus:border-primary font-body-md resize-none" placeholder="What is it about?" rows="2"></textarea>
+            <div class="flex items-center gap-stack-md text-on-surface-variant">
+              <span class="w-2 h-2 rounded-full bg-secondary-container inline-block"></span>
+              <span class="font-label-sm text-label-sm" id="stat-today">0 today</span>
             </div>
-
-            <div class="grid grid-cols-2 gap-stack-md">
-              <div>
-                <label class="block text-label-sm text-on-surface-variant mb-1">Total Episodes</label>
-                <input id="s-total" class="w-full bg-white border border-outline-variant rounded-lg p-2 focus:outline-none focus:border-primary font-body-md" placeholder="12" type="number" min="1"/>
-              </div>
-              <div>
-                <label class="block text-label-sm text-on-surface-variant mb-1">Current Episode</label>
-                <input id="s-current" class="w-full bg-white border border-outline-variant rounded-lg p-2 focus:outline-none focus:border-primary font-body-md" placeholder="0" type="number" min="0"/>
-              </div>
+            <div class="flex items-center gap-stack-md text-on-surface-variant">
+              <span class="w-2 h-2 rounded-full inline-block" style="background:#e8f5e9;border:1px solid #a5d6a7;"></span>
+              <span class="font-label-sm text-label-sm" id="stat-total">0 series tracked</span>
             </div>
+          </div>
 
-            <div class="grid grid-cols-2 gap-stack-md">
-              <div>
-                <label class="block text-label-sm text-on-surface-variant mb-1">Next Episode Date</label>
-                <input id="s-next-date" class="w-full bg-white border border-outline-variant rounded-lg p-2 focus:outline-none focus:border-primary font-body-md" type="date"/>
-              </div>
-              <div>
-                <label class="block text-label-sm text-on-surface-variant mb-1">Next Episode #</label>
-                <input id="s-next-ep" class="w-full bg-white border border-outline-variant rounded-lg p-2 focus:outline-none focus:border-primary font-body-md" placeholder="e.g. 3" type="number" min="1"/>
-              </div>
-            </div>
-
-            <button id="save-btn" class="w-full bg-primary text-on-primary font-bold py-3 rounded-lg hover:opacity-90 transition-all active:scale-95">
-              Save to Watchlist
-            </button>
+          <div class="mt-stack-lg pt-stack-lg border-t border-outline-variant/30">
+            <p class="font-label-sm text-label-sm text-on-surface-variant mb-stack-md">Add more series →</p>
+            <a href="series.html" class="block w-full bg-primary text-on-primary text-center font-label-sm py-2 rounded-lg hover:opacity-90 transition-opacity">
+              Go to Series
+            </a>
           </div>
         </div>
+      </div>
+
+      <!-- Schedule List -->
+      <div class="md:col-span-9">
+
+        <!-- Empty State -->
+        <div id="empty-state" style="text-align:center;padding:4rem 1rem;color:#7b7484;">
+          <p style="font-size:2.5rem;">📅</p>
+          <p style="font-style:italic;margin-top:0.5rem;">No upcoming episodes yet.</p>
+          <p style="font-size:14px;margin-top:0.5rem;">Go to the <a href="series.html" style="color:#461599;text-decoration:underline;">Series page</a> and set a next episode date!</p>
+        </div>
+
+        <!-- Episodes list -->
+        <div class="flex flex-col gap-gutter" id="schedule-list"></div>
+
       </div>
     </div>
   </main>
@@ -255,7 +161,7 @@
       <a class="text-on-surface-variant hover:text-primary underline transition-all font-body-md" href="series.html">Series</a>
       <a class="text-on-surface-variant hover:text-primary underline transition-all font-body-md" href="schedule.html">Schedule</a>
     </nav>
-    <p class="font-body-md text-on-surface-variant">© 2025 Ami's Little Corner. Keep tracking your joy. 💜</p>
+    <p class="font-body-md text-on-surface-variant">© <span id="footer-year"></span> Ami's Little Corner. Keep tracking your joy. 💜</p>
   </footer>
 
   <!-- Mobile Bottom Nav -->
@@ -264,259 +170,108 @@
       <span class="material-symbols-outlined">auto_stories</span>
       <span class="text-[10px]">Books</span>
     </a>
-    <a href="series.html" class="flex flex-col items-center text-primary font-bold">
-      <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">movie</span>
+    <a href="series.html" class="flex flex-col items-center text-on-surface-variant">
+      <span class="material-symbols-outlined">movie</span>
       <span class="text-[10px]">Series</span>
     </a>
-    <a href="schedule.html" class="flex flex-col items-center text-on-surface-variant">
-      <span class="material-symbols-outlined">calendar_today</span>
+    <a href="schedule.html" class="flex flex-col items-center text-primary font-bold">
+      <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">calendar_today</span>
       <span class="text-[10px]">Schedule</span>
     </a>
   </div>
 
   <script>
-    // DATA
-    let seriesList = JSON.parse(localStorage.getItem('ami-series') || '[]');
-    let currentFilter = 'all';
-    let searchQuery = '';
-    let searchOpen = false;
-
-    // SEARCH TOGGLE
-    const searchToggle = document.getElementById('search-toggle');
-    const searchBar    = document.getElementById('search-bar');
-    const searchInput  = document.getElementById('search-input');
-    const searchIcon   = document.getElementById('search-icon');
-    const searchClear  = document.getElementById('search-clear');
-    const searchCount  = document.getElementById('search-count');
-
-    searchToggle.addEventListener('click', function () {
-      searchOpen = !searchOpen;
-      searchBar.classList.toggle('open', searchOpen);
-      searchIcon.textContent = searchOpen ? 'close' : 'search';
-      if (searchOpen) {
-        setTimeout(() => searchInput.focus(), 300);
-      } else {
-        searchQuery = '';
-        searchInput.value = '';
-        searchClear.classList.add('hidden');
-        searchCount.classList.add('hidden');
-        renderSeries();
-      }
-    });
-
-    searchInput.addEventListener('input', function () {
-      searchQuery = this.value.trim().toLowerCase();
-      searchClear.classList.toggle('hidden', searchQuery === '');
-      renderSeries();
-    });
-
-    searchClear.addEventListener('click', function () {
-      searchQuery = '';
-      searchInput.value = '';
-      searchClear.classList.add('hidden');
-      searchCount.classList.add('hidden');
-      searchInput.focus();
-      renderSeries();
-    });
-
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && searchOpen) {
-        searchOpen = false;
-        searchBar.classList.remove('open');
-        searchIcon.textContent = 'search';
-        searchQuery = '';
-        searchInput.value = '';
-        searchClear.classList.add('hidden');
-        searchCount.classList.add('hidden');
-        renderSeries();
-      }
-    });
-
-    // COVER UPLOAD
-    document.getElementById('s-cover-input').addEventListener('change', function () {
-      const file = this.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        const preview = document.getElementById('s-cover-preview');
-        preview.src = e.target.result;
-        preview.classList.remove('hidden');
-        document.getElementById('s-cover-icon').classList.add('hidden');
-        document.getElementById('s-cover-text').classList.add('hidden');
-      };
-      reader.readAsDataURL(file);
-    });
-
-    // ADD SERIES
-    document.getElementById('save-btn').addEventListener('click', function () {
-      const title = document.getElementById('s-title').value.trim();
-      if (!title) { alert('Please enter a series title!'); return; }
-
-      const preview = document.getElementById('s-cover-preview');
-      const hasCover = !preview.classList.contains('hidden');
-
-      const item = {
-        id: Date.now(),
-        title,
-        platform: document.getElementById('s-platform').value,
-        status: document.getElementById('s-status').value,
-        desc: document.getElementById('s-desc').value.trim(),
-        total: parseInt(document.getElementById('s-total').value) || 0,
-        current: parseInt(document.getElementById('s-current').value) || 0,
-        nextDate: document.getElementById('s-next-date').value,
-        nextEp: document.getElementById('s-next-ep').value,
-        coverSrc: hasCover ? preview.src : ''
-      };
-
-      seriesList.unshift(item);
-      localStorage.setItem('ami-series', JSON.stringify(seriesList));
-      resetForm();
-      renderSeries();
-    });
-
-    // RESET FORM
-    function resetForm() {
-      ['s-title', 's-desc', 's-total', 's-current', 's-next-date', 's-next-ep'].forEach(id => document.getElementById(id).value = '');
-      document.getElementById('s-platform').value = '';
-      document.getElementById('s-status').value = 'Watching';
-      const preview = document.getElementById('s-cover-preview');
-      preview.src = '';
-      preview.classList.add('hidden');
-      document.getElementById('s-cover-icon').classList.remove('hidden');
-      document.getElementById('s-cover-text').classList.remove('hidden');
-      document.getElementById('s-cover-input').value = '';
-    }
-
-    // DELETE
-    function deleteSeries(id) {
-      seriesList = seriesList.filter(s => s.id !== id);
-      localStorage.setItem('ami-series', JSON.stringify(seriesList));
-      renderSeries();
-    }
-
-    // FILTER PILLS
-    function filterSeries(filter) {
-      currentFilter = filter;
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        const isActive = btn.dataset.filter === filter;
-        btn.classList.toggle('bg-primary', isActive);
-        btn.classList.toggle('text-white', isActive);
-        btn.classList.toggle('border-primary', isActive);
-        btn.classList.toggle('text-on-surface-variant', !isActive);
-        btn.classList.toggle('border-outline-variant', !isActive);
-      });
-      renderSeries();
-    }
-
-    // FORMAT DATE
-    function formatDate(d) {
-      if (!d) return '';
-      const dt = new Date(d + 'T00:00:00');
-      return dt.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
-    }
-
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
     function dayDiff(d) {
-      const today = new Date(); today.setHours(0,0,0,0);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
       const dt = new Date(d + 'T00:00:00');
       return Math.round((dt - today) / (1000 * 60 * 60 * 24));
     }
 
-    function nextEpLabel(nextDate, nextEp) {
-      if (!nextDate) return '';
-      const diff = dayDiff(nextDate);
-      let when = '';
-      if (diff === 0) when = '<span style="color:#461599;font-weight:700;">Today! 🎉</span>';
-      else if (diff === 1) when = 'Tomorrow';
-      else if (diff > 0 && diff <= 7) when = `In ${diff} days`;
-      else if (diff < 0) when = `${Math.abs(diff)}d ago`;
-      else when = formatDate(nextDate);
-      return `<div class="mt-stack-sm text-label-sm" style="background:#f3e5f5;border:1px solid #d8b4f0;border-radius:8px;padding:6px 10px;color:#6a3fa0;">
-        🗓 Ep ${nextEp || '?'} — ${when}
-      </div>`;
+    function formatDate(d) {
+      if (!d) return '';
+      const dt = new Date(d + 'T00:00:00');
+      return dt.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
     }
 
-    // STATUS BADGE COLOR
-    function statusColor(status) {
-      if (status === 'Watching')  return 'background:#ede7f6;color:#6a3fa0';
-      if (status === 'Completed') return 'background:#e8f5e9;color:#2e7d32';
-      if (status === 'Dropped')   return 'background:#fde8e8;color:#c62828';
-      return 'background:#e8eaf6;color:#3949ab';
+    function getBadge(diff, dateStr) {
+      if (diff === 0)              return { cls: 'badge-today',    label: 'Today! 🎉' };
+      if (diff === 1)              return { cls: 'badge-tomorrow', label: 'Tomorrow' };
+      if (diff > 1 && diff <= 7)  return { cls: 'badge-soon',     label: `In ${diff} days` };
+      if (diff < 0)               return { cls: 'badge-past',     label: `${Math.abs(diff)}d ago` };
+      return { cls: 'badge-future', label: formatDate(dateStr) };
     }
 
-    // RENDER
-    function renderSeries() {
-      const list       = document.getElementById('series-list');
+    function renderSchedule() {
+      const seriesList = JSON.parse(localStorage.getItem('ami-series') || '[]');
+
+      const withDates = seriesList
+        .filter(s => s.nextDate)
+        .sort((a, b) => a.nextDate.localeCompare(b.nextDate));
+
+      const list       = document.getElementById('schedule-list');
       const emptyState = document.getElementById('empty-state');
-      const emptyMsg   = document.getElementById('empty-msg');
 
-      let filtered = currentFilter === 'all'
-        ? seriesList
-        : seriesList.filter(s => s.status === currentFilter);
+      // Sidebar stats
+      const todayCount    = withDates.filter(s => dayDiff(s.nextDate) === 0).length;
+      const upcomingCount = withDates.filter(s => dayDiff(s.nextDate) >= 0).length;
+      document.getElementById('stat-today').textContent    = `${todayCount} today`;
+      document.getElementById('stat-upcoming').textContent = `${upcomingCount} upcoming`;
+      document.getElementById('stat-total').textContent    = `${seriesList.length} series tracked`;
 
-      if (searchQuery) {
-        filtered = filtered.filter(s =>
-          (s.title    || '').toLowerCase().includes(searchQuery) ||
-          (s.platform || '').toLowerCase().includes(searchQuery) ||
-          (s.status   || '').toLowerCase().includes(searchQuery) ||
-          (s.desc     || '').toLowerCase().includes(searchQuery)
-        );
-        searchCount.textContent = `${filtered.length} result${filtered.length !== 1 ? 's' : ''}`;
-        searchCount.classList.remove('hidden');
-      } else {
-        searchCount.classList.add('hidden');
-      }
+      // Sidebar month label
+      const now = new Date();
+      document.getElementById('sidebar-month').textContent =
+        now.toLocaleDateString('en-IN', { month: 'long', year: 'numeric' });
 
-      if (filtered.length === 0) {
+      if (withDates.length === 0) {
         list.innerHTML = '';
         emptyState.style.display = 'block';
-        emptyMsg.textContent = searchQuery
-          ? `No series found for "${searchQuery}"`
-          : 'No series yet — add one from the form!';
         return;
       }
       emptyState.style.display = 'none';
 
-      list.innerHTML = filtered.map(s => {
-        const pct = s.total > 0 ? Math.min(100, Math.round((s.current / s.total) * 100)) : 0;
-        const progressLabel = s.status === 'Completed'
-          ? 'Completed ✓'
-          : `Episode ${s.current}${s.total ? ' / ' + s.total : ''}`;
+      list.innerHTML = withDates.map(s => {
+        const diff    = dayDiff(s.nextDate);
+        const badge   = getBadge(diff, s.nextDate);
+        const isToday = diff === 0;
+
+        const coverHtml = s.coverSrc
+          ? `<div class="flex-shrink-0 w-full md:w-32 h-24 rounded-lg overflow-hidden bg-surface-container">
+               <img class="w-full h-full object-cover" src="${s.coverSrc}" alt="${s.title}"/>
+             </div>`
+          : `<div class="flex-shrink-0 w-full md:w-32 h-24 rounded-lg bg-surface-container flex items-center justify-center text-3xl">🎬</div>`;
 
         return `
-        <div class="bg-surface-container-lowest editorial-card rounded-xl p-stack-lg flex gap-gutter relative border border-outline-variant/20">
-          <button onclick="deleteSeries(${s.id})" class="absolute top-3 right-3 text-on-surface-variant hover:text-error transition-colors p-1 rounded-full hover:bg-surface-container" title="Remove">
-            <span class="material-symbols-outlined text-[18px]">close</span>
-          </button>
-          ${s.coverSrc
-            ? `<div class="w-32 h-44 shrink-0 rounded-lg overflow-hidden bg-surface-container">
-                <img class="w-full h-full object-cover" src="${s.coverSrc}" alt="${s.title}"/>
-               </div>`
-            : `<div class="w-32 h-44 shrink-0 rounded-lg bg-surface-container flex items-center justify-center text-4xl">🎬</div>`
-          }
-          <div class="flex flex-col justify-center flex-grow pr-6">
+        <div class="bg-surface-container-lowest rounded-xl p-stack-lg paper-layer border flex flex-col md:flex-row gap-stack-lg items-start
+                    ${isToday ? 'border-primary/30' : 'border-surface-container'}"
+             style="${isToday ? 'box-shadow: 0 0 0 2px rgba(70,21,153,0.15);' : ''}">
+
+          ${coverHtml}
+
+          <div class="flex-grow">
             <div class="flex justify-between items-start mb-stack-sm flex-wrap gap-2">
-              <h3 class="font-headline-md text-headline-md text-on-surface">${s.title}</h3>
-              ${s.platform ? `<span class="text-label-sm px-3 py-1 rounded-full" style="background:#c5a3ff;color:#533487;">${s.platform}</span>` : ''}
+              <span class="font-label-sm text-label-sm px-3 py-1 rounded-full ${badge.cls}">${badge.label}</span>
+              <span class="text-on-surface-variant font-body-md text-sm">${formatDate(s.nextDate)}</span>
             </div>
-            <span class="text-label-sm px-3 py-1 rounded-full inline-block mb-stack-md w-fit" style="${statusColor(s.status)}">${s.status}</span>
-            ${s.desc ? `<p class="text-on-surface-variant mb-stack-md line-clamp-2 text-sm">${s.desc}</p>` : ''}
-            <div class="mt-auto">
-              <div class="flex justify-between text-label-sm text-on-surface-variant mb-1">
-                <span>Progress</span>
-                <span>${progressLabel}</span>
-              </div>
-              <div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
-                <div class="progress-bar-fill" style="width:${s.status === 'Completed' ? 100 : pct}%"></div>
-              </div>
+            <h3 class="font-headline-md text-headline-md text-on-surface mb-stack-sm">${s.title}</h3>
+            <p class="text-on-surface-variant mb-stack-md text-sm">
+              ${s.platform ? `<strong>${s.platform}</strong> · ` : ''}Episode ${s.nextEp || '?'} airing
+            </p>
+            <div class="flex items-center gap-stack-md flex-wrap">
+              <a href="series.html" class="flex items-center gap-base text-primary hover:opacity-70 transition-opacity">
+                <span class="material-symbols-outlined text-[18px]">edit</span>
+                <span class="font-label-sm text-label-sm">Update in Series</span>
+              </a>
             </div>
-            ${nextEpLabel(s.nextDate, s.nextEp)}
           </div>
         </div>`;
       }).join('');
     }
 
-    // INIT
-    renderSeries();
+    // Run on load
+    renderSchedule();
   </script>
 
 </body>

@@ -273,7 +273,7 @@
       <a class="text-on-surface-variant hover:text-primary underline transition-all font-body-md" href="series.html">Series</a>
       <a class="text-on-surface-variant hover:text-primary underline transition-all font-body-md" href="schedule.html">Schedule</a>
     </nav>
-    <p class="font-body-md text-on-surface-variant">© 2025 Ami's Little Corner. Keep tracking your joy. 💜</p>
+    <p class="font-body-md text-on-surface-variant">© <span id="footer-year"></span> Ami's Little Corner. Keep tracking your joy. 💜</p>
   </footer>
 
   <!-- ══ MOBILE BOTTOM NAV ══ -->
@@ -362,6 +362,7 @@
 
   <!-- ══ SCRIPT ══ -->
   <script>
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
     // ── DATA ──────────────────────────────────────────────
     let books = JSON.parse(localStorage.getItem('ami-books') || '[]');
     let currentFilter = 'all';
