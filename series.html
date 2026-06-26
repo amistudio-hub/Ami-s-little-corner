@@ -82,25 +82,97 @@
       border-radius: 9999px;
       transition: width 0.3s ease;
     }
+    /* Search bar */
+    #search-bar {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+    }
+    #search-bar.open {
+      max-height: 80px;
+      opacity: 1;
+    }
+    /* Edit modal overlay */
+    #edit-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(30,25,39,0.45);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    #edit-modal.open {
+      display: flex;
+    }
+    #edit-modal-box {
+      background: #fff;
+      border-radius: 16px;
+      padding: 28px;
+      width: 100%;
+      max-width: 560px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 24px 48px -8px rgba(70,21,153,0.18);
+      position: relative;
+    }
+    /* Form inputs inside modal */
+    .modal-input {
+      width: 100%;
+      background: #fff;
+      border: 1px solid #cbc3d5;
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .modal-input:focus { border-color: #461599; }
+    .modal-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: #494453;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
   </style>
 </head>
 <body class="font-body-md text-body-md">
 
   <!-- Top Nav -->
-  <header class="w-full h-20 bg-background flex justify-between items-center max-w-[1200px] mx-auto px-container-padding sticky top-0 z-50">
-    <div class="font-headline-md text-headline-md font-bold text-primary">Ami's Little Corner</div>
-    <nav class="hidden md:flex items-center gap-gutter">
-      <a class="text-on-surface-variant font-medium pb-1 hover:text-primary transition-colors cursor-pointer" href="index.html">Books</a>
-      <a class="text-primary font-bold border-b-2 border-primary pb-1 cursor-pointer" href="series.html">Series</a>
-      <a class="text-on-surface-variant font-medium pb-1 hover:text-primary transition-colors cursor-pointer" href="schedule.html">Schedule</a>
-    </nav>
-    <div class="flex items-center gap-stack-md">
-      <button class="p-2 rounded-full hover:bg-surface-container transition-colors">
-        <span class="material-symbols-outlined text-on-surface-variant">search</span>
-      </button>
-      <button class="p-2 rounded-full hover:bg-surface-container transition-colors">
-        <span class="material-symbols-outlined text-primary">account_circle</span>
-      </button>
+  <header class="w-full bg-background sticky top-0 z-50">
+    <div class="h-20 flex justify-between items-center max-w-[1200px] mx-auto px-container-padding">
+      <div class="font-headline-md text-headline-md font-bold text-primary">Ami's Little Corner</div>
+      <nav class="hidden md:flex items-center gap-gutter">
+        <a class="text-on-surface-variant font-medium pb-1 hover:text-primary transition-colors cursor-pointer" href="index.html">Books</a>
+        <a class="text-primary font-bold border-b-2 border-primary pb-1 cursor-pointer" href="series.html">Series</a>
+        <a class="text-on-surface-variant font-medium pb-1 hover:text-primary transition-colors cursor-pointer" href="schedule.html">Schedule</a>
+      </nav>
+      <div class="flex items-center gap-stack-md">
+        <button id="search-toggle" class="p-2 rounded-full hover:bg-surface-container transition-colors" title="Search series">
+          <span class="material-symbols-outlined text-on-surface-variant" id="search-icon">search</span>
+        </button>
+        <button class="p-2 rounded-full hover:bg-surface-container transition-colors">
+          <span class="material-symbols-outlined text-primary">account_circle</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Slide-down Search Bar -->
+    <div id="search-bar" class="max-w-[1200px] mx-auto px-container-padding">
+      <div class="flex items-center gap-stack-md bg-surface-container-lowest border border-outline-variant rounded-xl px-4 py-2 mb-3 shadow-sm">
+        <span class="material-symbols-outlined text-primary text-[20px]">search</span>
+        <input id="search-input" type="text" placeholder="Search by title, platform, or status…"
+          class="flex-grow bg-transparent focus:outline-none font-body-md text-on-surface placeholder:text-on-surface-variant/60"/>
+        <span id="search-count" class="font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap hidden"></span>
+        <button id="search-clear" class="text-on-surface-variant hover:text-primary transition-colors hidden" title="Clear search">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -123,12 +195,13 @@
           <button onclick="filterSeries('Watching')" class="filter-btn px-4 py-1 rounded-full text-label-sm border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all" data-filter="Watching">Watching</button>
           <button onclick="filterSeries('Completed')" class="filter-btn px-4 py-1 rounded-full text-label-sm border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all" data-filter="Completed">Completed</button>
           <button onclick="filterSeries('Dropped')" class="filter-btn px-4 py-1 rounded-full text-label-sm border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all" data-filter="Dropped">Dropped</button>
+          <button onclick="filterSeries('Plan to Watch')" class="filter-btn px-4 py-1 rounded-full text-label-sm border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all" data-filter="Plan to Watch">Plan to Watch</button>
         </div>
 
         <!-- Empty State -->
-        <div id="empty-state" style="text-align:center;padding:3rem 1rem;color:#7b7484;font-style:italic;">
+        <div id="empty-state" style="text-align:center;padding:3rem 1rem;color:#7b7484;font-style:italic;display:none;">
           <p style="font-size:2rem;">🎬</p>
-          <p class="mt-2">No series yet — add one from the form!</p>
+          <p class="mt-2" id="empty-msg">No series yet — add one from the form!</p>
         </div>
 
         <!-- Series Cards -->
@@ -226,7 +299,7 @@
       <a class="text-on-surface-variant hover:text-primary underline transition-all font-body-md" href="series.html">Series</a>
       <a class="text-on-surface-variant hover:text-primary underline transition-all font-body-md" href="schedule.html">Schedule</a>
     </nav>
-    <p class="font-body-md text-on-surface-variant">© 2025 Ami's Little Corner. Keep tracking your joy. 💜</p>
+    <p class="font-body-md text-on-surface-variant">© <script>document.write(new Date().getFullYear())</script> Ami's Little Corner. Keep tracking your joy. 💜</p>
   </footer>
 
   <!-- Mobile Bottom Nav -->
@@ -245,12 +318,177 @@
     </a>
   </div>
 
+  <!-- ── EDIT MODAL ─────────────────────────────────────── -->
+  <div id="edit-modal">
+    <div id="edit-modal-box">
+      <!-- Close button -->
+      <button onclick="closeEditModal()" class="absolute top-4 right-4 text-on-surface-variant hover:text-primary transition-colors p-1 rounded-full hover:bg-surface-container">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+
+      <h3 style="font-family:Literata;font-size:24px;font-weight:600;color:#1e1927;margin-bottom:20px;">Edit Series</h3>
+
+      <div style="display:flex;flex-direction:column;gap:14px;">
+
+        <!-- Cover -->
+        <div>
+          <label class="modal-label">Cover Image</label>
+          <div style="display:flex;align-items:center;gap:14px;margin-top:4px;">
+            <div style="width:72px;height:100px;border-radius:8px;overflow:hidden;background:#f4eafd;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+              <img id="edit-cover-preview" src="" alt="" style="width:100%;height:100%;object-fit:cover;display:none;"/>
+              <span id="edit-cover-placeholder" class="material-symbols-outlined" style="color:#7b7484;font-size:28px;">add_photo_alternate</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <label style="cursor:pointer;background:#f4eafd;color:#461599;font-size:12px;font-weight:600;padding:6px 14px;border-radius:8px;border:1px solid #cbc3d5;display:inline-block;">
+                Change Cover
+                <input type="file" accept="image/*" id="edit-cover-input" style="display:none;"/>
+              </label>
+              <button onclick="removeEditCover()" id="edit-cover-remove" style="display:none;font-size:12px;color:#c62828;background:none;border:none;cursor:pointer;padding:0;text-align:left;">Remove cover</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Title -->
+        <div>
+          <label class="modal-label">Title</label>
+          <input id="edit-title" class="modal-input" type="text" placeholder="Series name"/>
+        </div>
+
+        <!-- Platform -->
+        <div>
+          <label class="modal-label">Platform</label>
+          <select id="edit-platform" class="modal-input">
+            <option value="">Select Platform</option>
+            <option>Netflix</option>
+            <option>Disney+</option>
+            <option>Hulu</option>
+            <option>Apple TV+</option>
+            <option>HBO Max</option>
+            <option>Amazon Prime</option>
+            <option>Viki</option>
+            <option>Kisskh</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <!-- Status -->
+        <div>
+          <label class="modal-label">Status</label>
+          <select id="edit-status" class="modal-input">
+            <option value="Watching">Watching</option>
+            <option value="Completed">Completed</option>
+            <option value="Dropped">Dropped</option>
+            <option value="Plan to Watch">Plan to Watch</option>
+          </select>
+        </div>
+
+        <!-- Description -->
+        <div>
+          <label class="modal-label">Description (optional)</label>
+          <textarea id="edit-desc" class="modal-input" rows="2" style="resize:none;" placeholder="What is it about?"></textarea>
+        </div>
+
+        <!-- Episodes -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div>
+            <label class="modal-label">Total Episodes</label>
+            <input id="edit-total" class="modal-input" type="number" min="1" placeholder="12"/>
+          </div>
+          <div>
+            <label class="modal-label">Current Episode</label>
+            <input id="edit-current" class="modal-input" type="number" min="0" placeholder="0"/>
+          </div>
+        </div>
+
+        <!-- Next episode -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div>
+            <label class="modal-label">Next Episode Date</label>
+            <input id="edit-next-date" class="modal-input" type="date"/>
+          </div>
+          <div>
+            <label class="modal-label">Next Episode #</label>
+            <input id="edit-next-ep" class="modal-input" type="number" min="1" placeholder="e.g. 3"/>
+          </div>
+        </div>
+
+        <!-- Save -->
+        <button onclick="saveEdit()" style="width:100%;background:#461599;color:#fff;font-weight:700;padding:12px;border-radius:8px;border:none;cursor:pointer;font-size:15px;margin-top:4px;transition:opacity 0.2s;" onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
+          Save Changes
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script>
     // ── DATA ──────────────────────────────────────────────
     let seriesList = JSON.parse(localStorage.getItem('ami-series') || '[]');
     let currentFilter = 'all';
+    let searchQuery   = '';
+    let searchOpen    = false;
+    let editingId     = null;   // tracks which series is being edited
 
-    // ── COVER UPLOAD ──────────────────────────────────────
+    // ── SEARCH ────────────────────────────────────────────
+    const searchToggle = document.getElementById('search-toggle');
+    const searchBar    = document.getElementById('search-bar');
+    const searchInput  = document.getElementById('search-input');
+    const searchIcon   = document.getElementById('search-icon');
+    const searchClear  = document.getElementById('search-clear');
+    const searchCount  = document.getElementById('search-count');
+
+    searchToggle.addEventListener('click', function () {
+      searchOpen = !searchOpen;
+      searchBar.classList.toggle('open', searchOpen);
+      searchIcon.textContent = searchOpen ? 'close' : 'search';
+      if (searchOpen) {
+        setTimeout(() => searchInput.focus(), 300);
+      } else {
+        searchQuery = '';
+        searchInput.value = '';
+        searchClear.classList.add('hidden');
+        searchCount.classList.add('hidden');
+        renderSeries();
+      }
+    });
+
+    searchInput.addEventListener('input', function () {
+      searchQuery = this.value.trim().toLowerCase();
+      searchClear.classList.toggle('hidden', searchQuery === '');
+      renderSeries();
+    });
+
+    searchClear.addEventListener('click', function () {
+      searchQuery = '';
+      searchInput.value = '';
+      searchClear.classList.add('hidden');
+      searchCount.classList.add('hidden');
+      searchInput.focus();
+      renderSeries();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        if (document.getElementById('edit-modal').classList.contains('open')) {
+          closeEditModal();
+        } else if (searchOpen) {
+          searchOpen = false;
+          searchBar.classList.remove('open');
+          searchIcon.textContent = 'search';
+          searchQuery = '';
+          searchInput.value = '';
+          searchClear.classList.add('hidden');
+          searchCount.classList.add('hidden');
+          renderSeries();
+        }
+      }
+    });
+
+    // Close modal when clicking outside the box
+    document.getElementById('edit-modal').addEventListener('click', function (e) {
+      if (e.target === this) closeEditModal();
+    });
+
+    // ── COVER UPLOAD (add form) ───────────────────────────
     document.getElementById('s-cover-input').addEventListener('change', function () {
       const file = this.files[0];
       if (!file) return;
@@ -265,24 +503,47 @@
       reader.readAsDataURL(file);
     });
 
+    // ── COVER UPLOAD (edit modal) ─────────────────────────
+    document.getElementById('edit-cover-input').addEventListener('change', function () {
+      const file = this.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const preview = document.getElementById('edit-cover-preview');
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+        document.getElementById('edit-cover-placeholder').style.display = 'none';
+        document.getElementById('edit-cover-remove').style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    });
+
+    function removeEditCover() {
+      document.getElementById('edit-cover-preview').src = '';
+      document.getElementById('edit-cover-preview').style.display = 'none';
+      document.getElementById('edit-cover-placeholder').style.display = 'block';
+      document.getElementById('edit-cover-remove').style.display = 'none';
+      document.getElementById('edit-cover-input').value = '';
+    }
+
     // ── ADD SERIES ────────────────────────────────────────
     document.getElementById('save-btn').addEventListener('click', function () {
       const title = document.getElementById('s-title').value.trim();
       if (!title) { alert('Please enter a series title!'); return; }
 
-      const preview = document.getElementById('s-cover-preview');
+      const preview  = document.getElementById('s-cover-preview');
       const hasCover = !preview.classList.contains('hidden');
 
       const item = {
         id: Date.now(),
         title,
         platform: document.getElementById('s-platform').value,
-        status: document.getElementById('s-status').value,
-        desc: document.getElementById('s-desc').value.trim(),
-        total: parseInt(document.getElementById('s-total').value) || 0,
-        current: parseInt(document.getElementById('s-current').value) || 0,
+        status:   document.getElementById('s-status').value,
+        desc:     document.getElementById('s-desc').value.trim(),
+        total:    parseInt(document.getElementById('s-total').value)   || 0,
+        current:  parseInt(document.getElementById('s-current').value) || 0,
         nextDate: document.getElementById('s-next-date').value,
-        nextEp: document.getElementById('s-next-ep').value,
+        nextEp:   document.getElementById('s-next-ep').value,
         coverSrc: hasCover ? preview.src : ''
       };
 
@@ -292,11 +553,11 @@
       renderSeries();
     });
 
-    // ── RESET FORM ────────────────────────────────────────
+    // ── RESET ADD FORM ────────────────────────────────────
     function resetForm() {
-      ['s-title', 's-desc', 's-total', 's-current', 's-next-date', 's-next-ep'].forEach(id => document.getElementById(id).value = '');
+      ['s-title','s-desc','s-total','s-current','s-next-date','s-next-ep'].forEach(id => document.getElementById(id).value = '');
       document.getElementById('s-platform').value = '';
-      document.getElementById('s-status').value = 'Watching';
+      document.getElementById('s-status').value   = 'Watching';
       const preview = document.getElementById('s-cover-preview');
       preview.src = '';
       preview.classList.add('hidden');
@@ -305,28 +566,103 @@
       document.getElementById('s-cover-input').value = '';
     }
 
-    // ── DELETE ────────────────────────────────────────────
+    // ── DELETE (with confirmation) ────────────────────────
     function deleteSeries(id) {
+      if (!confirm('Remove this series? This cannot be undone.')) return;
       seriesList = seriesList.filter(s => s.id !== id);
       localStorage.setItem('ami-series', JSON.stringify(seriesList));
       renderSeries();
     }
 
-    // ── FILTER ────────────────────────────────────────────
+    // ── OPEN EDIT MODAL ───────────────────────────────────
+    function openEditModal(id) {
+      const s = seriesList.find(s => s.id === id);
+      if (!s) return;
+      editingId = id;
+
+      document.getElementById('edit-title').value     = s.title     || '';
+      document.getElementById('edit-platform').value  = s.platform  || '';
+      document.getElementById('edit-status').value    = s.status    || 'Watching';
+      document.getElementById('edit-desc').value      = s.desc      || '';
+      document.getElementById('edit-total').value     = s.total     || '';
+      document.getElementById('edit-current').value   = s.current   || '';
+      document.getElementById('edit-next-date').value = s.nextDate  || '';
+      document.getElementById('edit-next-ep').value   = s.nextEp    || '';
+
+      const preview     = document.getElementById('edit-cover-preview');
+      const placeholder = document.getElementById('edit-cover-placeholder');
+      const removeBtn   = document.getElementById('edit-cover-remove');
+
+      if (s.coverSrc) {
+        preview.src           = s.coverSrc;
+        preview.style.display = 'block';
+        placeholder.style.display = 'none';
+        removeBtn.style.display   = 'block';
+      } else {
+        preview.src           = '';
+        preview.style.display = 'none';
+        placeholder.style.display = 'block';
+        removeBtn.style.display   = 'none';
+      }
+
+      document.getElementById('edit-cover-input').value = '';
+      document.getElementById('edit-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // ── CLOSE EDIT MODAL ──────────────────────────────────
+    function closeEditModal() {
+      document.getElementById('edit-modal').classList.remove('open');
+      document.body.style.overflow = '';
+      editingId = null;
+    }
+
+    // ── SAVE EDIT ─────────────────────────────────────────
+    function saveEdit() {
+      if (!editingId) return;
+      const title = document.getElementById('edit-title').value.trim();
+      if (!title) { alert('Title cannot be empty!'); return; }
+
+      const preview = document.getElementById('edit-cover-preview');
+      const hasCover = preview.style.display !== 'none' && preview.src;
+
+      const idx = seriesList.findIndex(s => s.id === editingId);
+      if (idx === -1) return;
+
+      // Preserve the original id and coverSrc if not changed
+      seriesList[idx] = {
+        ...seriesList[idx],
+        title,
+        platform: document.getElementById('edit-platform').value,
+        status:   document.getElementById('edit-status').value,
+        desc:     document.getElementById('edit-desc').value.trim(),
+        total:    parseInt(document.getElementById('edit-total').value)   || 0,
+        current:  parseInt(document.getElementById('edit-current').value) || 0,
+        nextDate: document.getElementById('edit-next-date').value,
+        nextEp:   document.getElementById('edit-next-ep').value,
+        coverSrc: hasCover ? preview.src : ''
+      };
+
+      localStorage.setItem('ami-series', JSON.stringify(seriesList));
+      closeEditModal();
+      renderSeries();
+    }
+
+    // ── FILTER PILLS ──────────────────────────────────────
     function filterSeries(filter) {
       currentFilter = filter;
       document.querySelectorAll('.filter-btn').forEach(btn => {
         const isActive = btn.dataset.filter === filter;
-        btn.classList.toggle('bg-primary', isActive);
-        btn.classList.toggle('text-white', isActive);
-        btn.classList.toggle('border-primary', isActive);
+        btn.classList.toggle('bg-primary',            isActive);
+        btn.classList.toggle('text-white',            isActive);
+        btn.classList.toggle('border-primary',        isActive);
         btn.classList.toggle('text-on-surface-variant', !isActive);
-        btn.classList.toggle('border-outline-variant', !isActive);
+        btn.classList.toggle('border-outline-variant',  !isActive);
       });
       renderSeries();
     }
 
-    // ── FORMAT DATE ───────────────────────────────────────
+    // ── HELPERS ───────────────────────────────────────────
     function formatDate(d) {
       if (!d) return '';
       const dt = new Date(d + 'T00:00:00');
@@ -343,48 +679,75 @@
       if (!nextDate) return '';
       const diff = dayDiff(nextDate);
       let when = '';
-      if (diff === 0) when = '<span style="color:#461599;font-weight:700;">Today! 🎉</span>';
-      else if (diff === 1) when = 'Tomorrow';
-      else if (diff > 0 && diff <= 7) when = `In ${diff} days`;
-      else if (diff < 0) when = `${Math.abs(diff)}d ago`;
-      else when = formatDate(nextDate);
+      if (diff === 0)              when = '<span style="color:#461599;font-weight:700;">Today! 🎉</span>';
+      else if (diff === 1)         when = 'Tomorrow';
+      else if (diff > 1 && diff <= 7) when = `In ${diff} days`;
+      else if (diff < 0)           when = `${Math.abs(diff)}d ago`;
+      else                         when = formatDate(nextDate);
       return `<div class="mt-stack-sm text-label-sm" style="background:#f3e5f5;border:1px solid #d8b4f0;border-radius:8px;padding:6px 10px;color:#6a3fa0;">
         🗓 Ep ${nextEp || '?'} — ${when}
       </div>`;
     }
 
-    // ── STATUS BADGE COLOR ────────────────────────────────
     function statusColor(status) {
-      if (status === 'Watching') return 'background:#ede7f6;color:#6a3fa0';
-      if (status === 'Completed') return 'background:#e8f5e9;color:#2e7d32';
-      if (status === 'Dropped') return 'background:#fde8e8;color:#c62828';
+      if (status === 'Watching')      return 'background:#ede7f6;color:#6a3fa0';
+      if (status === 'Completed')     return 'background:#e8f5e9;color:#2e7d32';
+      if (status === 'Dropped')       return 'background:#fde8e8;color:#c62828';
+      if (status === 'Plan to Watch') return 'background:#e8eaf6;color:#3949ab';
       return 'background:#e8eaf6;color:#3949ab';
     }
 
     // ── RENDER ────────────────────────────────────────────
     function renderSeries() {
-      const list = document.getElementById('series-list');
+      const list       = document.getElementById('series-list');
       const emptyState = document.getElementById('empty-state');
-      const filtered = currentFilter === 'all' ? seriesList : seriesList.filter(s => s.status === currentFilter);
+      const emptyMsg   = document.getElementById('empty-msg');
+
+      let filtered = currentFilter === 'all'
+        ? seriesList
+        : seriesList.filter(s => s.status === currentFilter);
+
+      if (searchQuery) {
+        filtered = filtered.filter(s =>
+          (s.title    || '').toLowerCase().includes(searchQuery) ||
+          (s.platform || '').toLowerCase().includes(searchQuery) ||
+          (s.status   || '').toLowerCase().includes(searchQuery) ||
+          (s.desc     || '').toLowerCase().includes(searchQuery)
+        );
+        searchCount.textContent = `${filtered.length} result${filtered.length !== 1 ? 's' : ''}`;
+        searchCount.classList.remove('hidden');
+      } else {
+        searchCount.classList.add('hidden');
+      }
 
       if (filtered.length === 0) {
         list.innerHTML = '';
         emptyState.style.display = 'block';
+        emptyMsg.textContent = searchQuery
+          ? `No series found for "${searchQuery}"`
+          : 'No series yet — add one from the form!';
         return;
       }
       emptyState.style.display = 'none';
 
       list.innerHTML = filtered.map(s => {
         const pct = s.total > 0 ? Math.min(100, Math.round((s.current / s.total) * 100)) : 0;
-        const progressLabel = s.status === 'Completed' ? 'Completed ✓' : `Episode ${s.current}${s.total ? ' / ' + s.total : ''}`;
+        const progressLabel = s.status === 'Completed'
+          ? 'Completed ✓'
+          : `Episode ${s.current}${s.total ? ' / ' + s.total : ''}`;
 
         return `
         <div class="bg-surface-container-lowest editorial-card rounded-xl p-stack-lg flex gap-gutter relative border border-outline-variant/20">
 
-          <!-- Delete -->
-          <button onclick="deleteSeries(${s.id})" class="absolute top-3 right-3 text-on-surface-variant hover:text-error transition-colors p-1 rounded-full hover:bg-surface-container" title="Remove">
-            <span class="material-symbols-outlined text-[18px]">close</span>
-          </button>
+          <!-- Top-right action buttons: edit + delete -->
+          <div class="absolute top-3 right-3 flex gap-1">
+            <button onclick="openEditModal(${s.id})" class="text-on-surface-variant hover:text-primary transition-colors p-1 rounded-full hover:bg-surface-container" title="Edit">
+              <span class="material-symbols-outlined text-[18px]">edit</span>
+            </button>
+            <button onclick="deleteSeries(${s.id})" class="text-on-surface-variant hover:text-error transition-colors p-1 rounded-full hover:bg-surface-container" title="Remove">
+              <span class="material-symbols-outlined text-[18px]">close</span>
+            </button>
+          </div>
 
           <!-- Cover -->
           ${s.coverSrc
@@ -395,16 +758,13 @@
           }
 
           <!-- Info -->
-          <div class="flex flex-col justify-center flex-grow pr-6">
+          <div class="flex flex-col justify-center flex-grow pr-10">
             <div class="flex justify-between items-start mb-stack-sm flex-wrap gap-2">
               <h3 class="font-headline-md text-headline-md text-on-surface">${s.title}</h3>
               ${s.platform ? `<span class="text-label-sm px-3 py-1 rounded-full" style="background:#c5a3ff;color:#533487;">${s.platform}</span>` : ''}
             </div>
-
             <span class="text-label-sm px-3 py-1 rounded-full inline-block mb-stack-md w-fit" style="${statusColor(s.status)}">${s.status}</span>
-
             ${s.desc ? `<p class="text-on-surface-variant mb-stack-md line-clamp-2 text-sm">${s.desc}</p>` : ''}
-
             <div class="mt-auto">
               <div class="flex justify-between text-label-sm text-on-surface-variant mb-1">
                 <span>Progress</span>
@@ -414,7 +774,6 @@
                 <div class="progress-bar-fill" style="width:${s.status === 'Completed' ? 100 : pct}%"></div>
               </div>
             </div>
-
             ${nextEpLabel(s.nextDate, s.nextEp)}
           </div>
         </div>`;

@@ -13,85 +13,41 @@
         extend: {
           colors: {
             "background": "#fef7ff",
-            "surface": "#fef7ff",
-            "surface-bright": "#fef7ff",
             "surface-container-lowest": "#ffffff",
             "surface-container-low": "#f9f0ff",
             "surface-container": "#f4eafd",
             "surface-container-high": "#eee4f8",
             "surface-container-highest": "#e9dff2",
             "surface-variant": "#e9dff2",
-            "surface-dim": "#e0d6e9",
             "on-surface": "#1e1927",
             "on-surface-variant": "#494453",
             "on-background": "#1e1927",
             "primary": "#461599",
             "on-primary": "#ffffff",
-            "primary-container": "#5e35b1",
-            "on-primary-container": "#ceb8ff",
             "primary-fixed": "#eaddff",
-            "primary-fixed-dim": "#d1bcff",
-            "on-primary-fixed": "#24005b",
-            "on-primary-fixed-variant": "#5429a7",
-            "secondary": "#6d4ea2",
-            "on-secondary": "#ffffff",
             "secondary-container": "#c5a3ff",
             "on-secondary-container": "#533487",
-            "secondary-fixed": "#ebdcff",
-            "secondary-fixed-dim": "#d4bbff",
-            "on-secondary-fixed": "#270058",
-            "on-secondary-fixed-variant": "#543589",
             "outline": "#7b7484",
             "outline-variant": "#cbc3d5",
-            "inverse-surface": "#332e3c",
-            "inverse-on-surface": "#f7edff",
-            "inverse-primary": "#d1bcff",
-            "surface-tint": "#6c45c0",
             "error": "#ba1a1a",
-            "on-error": "#ffffff",
-            "error-container": "#ffdad6",
-            "on-error-container": "#93000a",
-            "tertiary": "#5a2f00",
-            "on-tertiary": "#ffffff",
-            "tertiary-container": "#7b4200",
-            "on-tertiary-container": "#ffb371",
-            "tertiary-fixed": "#ffdcc2",
-            "tertiary-fixed-dim": "#ffb77a",
-            "on-tertiary-fixed": "#2e1500",
-            "on-tertiary-fixed-variant": "#6d3a00",
           },
-          borderRadius: {
-            "DEFAULT": "0.25rem",
-            "lg": "0.5rem",
-            "xl": "0.75rem",
-            "full": "9999px"
-          },
+          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
           spacing: {
-            "stack-lg": "20px",
-            "container-padding": "24px",
-            "stack-md": "12px",
-            "section-gap": "64px",
-            "gutter": "16px",
-            "base": "8px",
-            "stack-sm": "4px"
+            "stack-lg": "20px", "container-padding": "24px", "stack-md": "12px",
+            "section-gap": "64px", "gutter": "16px", "base": "8px", "stack-sm": "4px"
           },
           fontFamily: {
-            "headline-lg-mobile": ["Literata"],
-            "body-lg": ["Inter"],
-            "headline-xl": ["Literata"],
-            "headline-lg": ["Literata"],
-            "headline-md": ["Literata"],
-            "body-md": ["Inter"],
-            "label-sm": ["Inter"]
+            "headline-xl": ["Literata"], "headline-lg": ["Literata"],
+            "headline-md": ["Literata"], "body-lg": ["Inter"],
+            "body-md": ["Inter"], "label-sm": ["Inter"]
           },
           fontSize: {
-            "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
-            "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
-            "headline-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-            "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
-            "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
-            "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
-            "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            "headline-xl": ["48px", {"lineHeight":"1.1","letterSpacing":"-0.02em","fontWeight":"700"}],
+            "headline-lg": ["32px", {"lineHeight":"1.2","fontWeight":"600"}],
+            "headline-md": ["24px", {"lineHeight":"1.3","fontWeight":"600"}],
+            "body-lg":     ["18px", {"lineHeight":"1.6","fontWeight":"400"}],
+            "body-md":     ["16px", {"lineHeight":"1.5","fontWeight":"400"}],
+            "label-sm":    ["12px", {"lineHeight":"1","letterSpacing":"0.05em","fontWeight":"600"}]
           }
         }
       }
@@ -100,39 +56,99 @@
   <style>
     body { background-color: #f5f0fc; color: #1e1927; }
     .editorial-card {
-      box-shadow: 0 4px 20px -4px rgba(70, 21, 153, 0.04);
+      box-shadow: 0 4px 20px -4px rgba(70,21,153,0.04);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .editorial-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 24px -8px rgba(70, 21, 153, 0.08);
+      box-shadow: 0 12px 24px -8px rgba(70,21,153,0.08);
     }
     .material-symbols-outlined {
-      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      font-variation-settings: 'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;
       font-family: 'Material Symbols Outlined';
       font-style: normal;
       vertical-align: middle;
     }
-    .empty-state {
-      text-align: center;
-      padding: 3rem 1rem;
-      color: #7b7484;
-      font-style: italic;
+    .star, .edit-star { color: #cbc3d5; transition: color 0.15s, transform 0.1s; cursor: pointer; }
+    .star:hover, .edit-star:hover { transform: scale(1.2); }
+
+    /* Search overlay */
+    #search-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 200;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 80px;
+    }
+    #search-overlay.open { display: flex; }
+    #search-box {
+      background: #fff;
+      border-radius: 16px;
+      padding: 1.5rem;
+      width: 90%;
+      max-width: 560px;
+      box-shadow: 0 20px 60px rgba(70,21,153,0.15);
+    }
+    #search-input {
+      width: 100%;
+      border: 1.5px solid #cbc3d5;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 16px;
+      font-family: Inter, sans-serif;
+      outline: none;
+      margin-bottom: 1rem;
+    }
+    #search-input:focus { border-color: #461599; }
+    #search-results .result-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    #search-results .result-item:hover { background: #f5f0fc; }
+
+    /* Edit Modal */
+    #edit-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    #edit-modal.open { display: flex; }
+    #edit-box {
+      background: #fff;
+      border-radius: 16px;
+      padding: 2rem;
+      max-width: 560px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
     }
   </style>
 </head>
 <body class="font-body-md text-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
 
-  <!-- Top Navigation Bar -->
-  <header class="w-full h-20 bg-background flex justify-between items-center max-w-[1200px] mx-auto px-container-padding sticky top-0 z-50">
+  <!-- ══ TOP NAV ══ -->
+  <header class="w-full h-20 bg-background flex justify-between items-center max-w-[1200px] mx-auto px-container-padding sticky top-0 z-50" style="background:#fef7ff;">
     <div class="font-headline-md text-headline-md font-bold text-primary">Ami's Little Corner</div>
     <nav class="hidden md:flex items-center gap-gutter">
-      <a class="text-primary font-bold border-b-2 border-primary pb-1 hover:text-primary transition-colors duration-200 cursor-pointer" href="index.html">Books</a>
-      <a class="text-on-surface-variant font-medium pb-1 hover:text-primary transition-colors duration-200 cursor-pointer" href="series.html">Series</a>
-      <a class="text-on-surface-variant font-medium pb-1 hover:text-primary transition-colors duration-200 cursor-pointer" href="schedule.html">Schedule</a>
+      <a class="text-primary font-bold border-b-2 border-primary pb-1 cursor-pointer" href="index.html">Books</a>
+      <a class="text-on-surface-variant font-medium pb-1 hover:text-primary transition-colors cursor-pointer" href="series.html">Series</a>
+      <a class="text-on-surface-variant font-medium pb-1 hover:text-primary transition-colors cursor-pointer" href="schedule.html">Schedule</a>
     </nav>
     <div class="flex items-center gap-stack-md">
-      <button class="p-2 rounded-full hover:bg-surface-container transition-colors">
+      <button onclick="openSearch()" class="p-2 rounded-full hover:bg-surface-container transition-colors" title="Search books">
         <span class="material-symbols-outlined text-on-surface-variant">search</span>
       </button>
       <button class="p-2 rounded-full hover:bg-surface-container transition-colors">
@@ -141,9 +157,10 @@
     </div>
   </header>
 
+  <!-- ══ MAIN ══ -->
   <main class="max-w-[1200px] mx-auto px-container-padding py-section-gap">
 
-    <!-- Log a New Book Section -->
+    <!-- Log a New Book -->
     <section class="mb-section-gap">
       <div class="flex flex-col gap-stack-lg">
         <h2 class="font-headline-lg text-headline-lg text-on-background">Reading Log</h2>
@@ -151,34 +168,37 @@
           <div class="flex flex-col md:flex-row gap-gutter">
 
             <!-- Cover Upload -->
-            <label class="w-full md:w-48 h-64 bg-surface-container-low rounded-lg border-2 border-dashed border-outline-variant flex flex-col items-center justify-center gap-stack-sm cursor-pointer hover:bg-surface-container transition-colors group" id="cover-label">
-              <img id="cover-preview" src="" alt="cover preview" class="hidden w-full h-full object-cover rounded-lg"/>
+            <label class="w-full md:w-48 h-64 bg-surface-container-low rounded-lg border-2 border-dashed border-outline-variant flex flex-col items-center justify-center gap-stack-sm cursor-pointer hover:bg-surface-container transition-colors group flex-shrink-0" id="cover-label">
+              <img id="cover-preview" src="" alt="" class="hidden w-full h-full object-cover rounded-lg"/>
               <span class="material-symbols-outlined text-outline group-hover:text-primary" id="cover-icon">add_photo_alternate</span>
               <span class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-primary" id="cover-text">+ Add Cover</span>
               <input type="file" accept="image/*" id="cover-input" class="hidden"/>
             </label>
 
-            <!-- Form Fields -->
+            <!-- Form -->
             <div class="flex-1 flex flex-col gap-gutter">
+
+              <!-- Title + Author -->
               <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
                 <div class="flex flex-col gap-stack-sm">
                   <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Book Title</label>
-                  <input id="input-title" class="bg-white border border-outline-variant rounded-lg p-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all font-body-md" placeholder="e.g. The Night Circus" type="text"/>
+                  <input id="input-title" class="bg-white border border-outline-variant rounded-lg p-3 focus:outline-none focus:border-primary transition-all font-body-md" placeholder="e.g. The Night Circus" type="text"/>
                 </div>
                 <div class="flex flex-col gap-stack-sm">
                   <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Author</label>
-                  <input id="input-author" class="bg-white border border-outline-variant rounded-lg p-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all font-body-md" placeholder="e.g. Erin Morgenstern" type="text"/>
+                  <input id="input-author" class="bg-white border border-outline-variant rounded-lg p-3 focus:outline-none focus:border-primary transition-all font-body-md" placeholder="e.g. Erin Morgenstern" type="text"/>
                 </div>
               </div>
 
+              <!-- Genre + Status -->
               <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
                 <div class="flex flex-col gap-stack-sm">
                   <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Genre</label>
-                  <input id="input-genre" class="bg-white border border-outline-variant rounded-lg p-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all font-body-md" placeholder="e.g. Fantasy" type="text"/>
+                  <input id="input-genre" class="bg-white border border-outline-variant rounded-lg p-3 focus:outline-none focus:border-primary transition-all font-body-md" placeholder="e.g. Fantasy, Romance..." type="text"/>
                 </div>
                 <div class="flex flex-col gap-stack-sm">
                   <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Status</label>
-                  <select id="input-status" class="bg-white border border-outline-variant rounded-lg p-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all font-body-md">
+                  <select id="input-status" class="bg-white border border-outline-variant rounded-lg p-3 focus:outline-none focus:border-primary transition-all font-body-md">
                     <option value="Reading Now">Reading Now</option>
                     <option value="Completed">Completed</option>
                     <option value="Want to Read">Want to Read</option>
@@ -187,20 +207,29 @@
                 </div>
               </div>
 
+              <!-- Stars + Date -->
               <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
                 <div class="flex flex-col gap-stack-sm">
-                  <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Rating (1–5)</label>
-                  <input id="input-rating" class="bg-white border border-outline-variant rounded-lg p-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all font-body-md" placeholder="e.g. 4.5" type="number" min="1" max="5" step="0.1"/>
+                  <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Rating</label>
+                  <div class="flex items-center gap-1" id="star-rating">
+                    <span class="star text-3xl" data-value="1">☆</span>
+                    <span class="star text-3xl" data-value="2">☆</span>
+                    <span class="star text-3xl" data-value="3">☆</span>
+                    <span class="star text-3xl" data-value="4">☆</span>
+                    <span class="star text-3xl" data-value="5">☆</span>
+                  </div>
+                  <input type="hidden" id="input-rating" value="0"/>
                 </div>
                 <div class="flex flex-col gap-stack-sm">
                   <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Date</label>
-                  <input id="input-date" class="bg-white border border-outline-variant rounded-lg p-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all font-body-md" type="date"/>
+                  <input id="input-date" class="bg-white border border-outline-variant rounded-lg p-3 focus:outline-none focus:border-primary transition-all font-body-md" type="date"/>
                 </div>
               </div>
 
+              <!-- Notes -->
               <div class="flex flex-col gap-stack-sm">
                 <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Thoughts or Annotations</label>
-                <textarea id="input-notes" class="bg-white border border-outline-variant rounded-lg p-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all font-body-md resize-none" placeholder="What resonated with you?" rows="3"></textarea>
+                <textarea id="input-notes" class="bg-white border border-outline-variant rounded-lg p-3 focus:outline-none focus:border-primary transition-all font-body-md resize-none" placeholder="What resonated with you?" rows="3"></textarea>
               </div>
 
               <div class="flex justify-end">
@@ -214,43 +243,40 @@
       </div>
     </section>
 
-    <!-- Book Shelf / Grid -->
+    <!-- My Shelf -->
     <section>
-      <div class="flex items-center justify-between mb-gutter">
+      <div class="flex items-center justify-between mb-gutter flex-wrap gap-3">
         <h3 class="font-headline-md text-headline-md text-on-background">My Shelf</h3>
-        <!-- Filter Pills -->
         <div class="flex gap-stack-sm flex-wrap">
-          <button onclick="filterBooks('all')" class="filter-btn active-filter px-4 py-1 rounded-full text-label-sm border border-primary text-primary font-semibold transition-all" data-filter="all">All</button>
+          <button onclick="filterBooks('all')" class="filter-btn px-4 py-1 rounded-full text-label-sm border border-primary bg-primary text-white transition-all" data-filter="all">All</button>
           <button onclick="filterBooks('Reading Now')" class="filter-btn px-4 py-1 rounded-full text-label-sm border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all" data-filter="Reading Now">Reading</button>
           <button onclick="filterBooks('Completed')" class="filter-btn px-4 py-1 rounded-full text-label-sm border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all" data-filter="Completed">Completed</button>
           <button onclick="filterBooks('Want to Read')" class="filter-btn px-4 py-1 rounded-full text-label-sm border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all" data-filter="Want to Read">Want to Read</button>
+          <button onclick="filterBooks('On Hold')" class="filter-btn px-4 py-1 rounded-full text-label-sm border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all" data-filter="On Hold">On Hold</button>
         </div>
       </div>
 
-      <!-- Empty state -->
-      <div id="empty-state" class="empty-state">
-        <p style="font-size:2rem;">📚</p>
-        <p class="mt-2">No books yet — add your first one above!</p>
+      <div id="empty-state" style="text-align:center;padding:3rem 1rem;color:#7b7484;font-style:italic;">
+        <p style="font-size:2.5rem;">📚</p>
+        <p style="margin-top:0.5rem;">No books yet — add your first one above!</p>
       </div>
 
-      <!-- Books Grid -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter" id="books-grid"></div>
     </section>
-
   </main>
 
-  <!-- Footer -->
-  <footer class="w-full py-section-gap bg-surface-container-low flex flex-col items-center justify-center gap-stack-md px-container-padding">
+  <!-- ══ FOOTER ══ -->
+  <footer class="w-full py-section-gap bg-surface-container-low flex flex-col items-center justify-center gap-stack-md px-container-padding mt-section-gap">
     <div class="font-headline-md text-headline-md text-primary font-bold">Ami's Little Corner</div>
     <nav class="flex gap-gutter">
       <a class="text-on-surface-variant hover:text-primary underline transition-all font-body-md" href="index.html">Books</a>
       <a class="text-on-surface-variant hover:text-primary underline transition-all font-body-md" href="series.html">Series</a>
       <a class="text-on-surface-variant hover:text-primary underline transition-all font-body-md" href="schedule.html">Schedule</a>
     </nav>
-    <p class="font-body-md text-body-md text-on-surface-variant">© 2025 Ami's Little Corner. Keep tracking your joy. 💜</p>
+    <p class="font-body-md text-on-surface-variant">© 2025 Ami's Little Corner. Keep tracking your joy. 💜</p>
   </footer>
 
-  <!-- Mobile Bottom Nav -->
+  <!-- ══ MOBILE BOTTOM NAV ══ -->
   <div class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-surface-variant h-16 flex justify-around items-center px-4 z-50">
     <a href="index.html" class="flex flex-col items-center text-primary font-bold">
       <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">auto_stories</span>
@@ -266,17 +292,139 @@
     </a>
   </div>
 
+  <!-- ══ SEARCH OVERLAY ══ -->
+  <div id="search-overlay" onclick="handleSearchOverlayClick(event)">
+    <div id="search-box">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+        <span class="material-symbols-outlined" style="color:#461599;">search</span>
+        <input id="search-input" placeholder="Search by title, author, or genre..." oninput="doSearch()" autofocus/>
+        <button onclick="closeSearch()" style="background:none;border:none;cursor:pointer;font-size:20px;color:#7b7484;">✕</button>
+      </div>
+      <div id="search-results"></div>
+      <p id="search-hint" style="font-size:13px;color:#7b7484;text-align:center;font-style:italic;">Start typing to find a book...</p>
+    </div>
+  </div>
+
+  <!-- ══ EDIT MODAL ══ -->
+  <div id="edit-modal" onclick="handleEditOverlayClick(event)">
+    <div id="edit-box">
+      <button onclick="closeEdit()" style="position:absolute;top:12px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:#7b7484;">✕</button>
+      <h3 style="font-family:Literata,serif;font-size:22px;font-weight:600;color:#461599;margin-bottom:1.2rem;">Edit Book</h3>
+      <input type="hidden" id="edit-id"/>
+
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div>
+          <label style="font-size:11px;font-weight:600;color:#494453;text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:4px;">Book Title</label>
+          <input id="edit-title" style="width:100%;border:1.5px solid #cbc3d5;border-radius:8px;padding:10px;font-size:15px;outline:none;font-family:Inter,sans-serif;box-sizing:border-box;" placeholder="Title"/>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:600;color:#494453;text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:4px;">Author</label>
+          <input id="edit-author" style="width:100%;border:1.5px solid #cbc3d5;border-radius:8px;padding:10px;font-size:15px;outline:none;font-family:Inter,sans-serif;box-sizing:border-box;" placeholder="Author"/>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:600;color:#494453;text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:4px;">Genre</label>
+          <input id="edit-genre" style="width:100%;border:1.5px solid #cbc3d5;border-radius:8px;padding:10px;font-size:15px;outline:none;font-family:Inter,sans-serif;box-sizing:border-box;" placeholder="Genre"/>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:600;color:#494453;text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:4px;">Status</label>
+          <select id="edit-status" style="width:100%;border:1.5px solid #cbc3d5;border-radius:8px;padding:10px;font-size:15px;outline:none;font-family:Inter,sans-serif;box-sizing:border-box;">
+            <option value="Reading Now">Reading Now</option>
+            <option value="Completed">Completed</option>
+            <option value="Want to Read">Want to Read</option>
+            <option value="On Hold">On Hold</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:600;color:#494453;text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:6px;">Rating</label>
+          <div id="edit-stars" style="display:flex;gap:6px;">
+            <span class="edit-star" data-value="1" style="font-size:28px;">☆</span>
+            <span class="edit-star" data-value="2" style="font-size:28px;">☆</span>
+            <span class="edit-star" data-value="3" style="font-size:28px;">☆</span>
+            <span class="edit-star" data-value="4" style="font-size:28px;">☆</span>
+            <span class="edit-star" data-value="5" style="font-size:28px;">☆</span>
+          </div>
+          <input type="hidden" id="edit-rating" value="0"/>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:600;color:#494453;text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:4px;">Date</label>
+          <input id="edit-date" type="date" style="width:100%;border:1.5px solid #cbc3d5;border-radius:8px;padding:10px;font-size:15px;outline:none;font-family:Inter,sans-serif;box-sizing:border-box;"/>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:600;color:#494453;text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:4px;">Notes</label>
+          <textarea id="edit-notes" rows="3" style="width:100%;border:1.5px solid #cbc3d5;border-radius:8px;padding:10px;font-size:15px;outline:none;font-family:Inter,sans-serif;resize:none;box-sizing:border-box;" placeholder="Your thoughts..."></textarea>
+        </div>
+        <button onclick="saveEdit()" style="background:#461599;color:#fff;border:none;border-radius:8px;padding:12px;font-size:14px;font-weight:600;cursor:pointer;width:100%;margin-top:4px;transition:opacity 0.15s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+          Save Changes
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SCRIPT ══ -->
   <script>
     // ── DATA ──────────────────────────────────────────────
     let books = JSON.parse(localStorage.getItem('ami-books') || '[]');
     let currentFilter = 'all';
+    let selectedRating = 0;
+    let editRating = 0;
+
+    // ── STAR RATING (add form) ────────────────────────────
+    document.querySelectorAll('.star').forEach(star => {
+      star.addEventListener('mouseover', function () {
+        const val = parseInt(this.dataset.value);
+        document.querySelectorAll('.star').forEach(s => {
+          const filled = parseInt(s.dataset.value) <= val;
+          s.textContent = filled ? '★' : '☆';
+          s.style.color  = filled ? '#461599' : '#cbc3d5';
+        });
+      });
+      star.addEventListener('mouseleave', function () {
+        updateAddStars(selectedRating);
+      });
+      star.addEventListener('click', function () {
+        selectedRating = parseInt(this.dataset.value);
+        document.getElementById('input-rating').value = selectedRating;
+        updateAddStars(selectedRating);
+      });
+    });
+
+    function updateAddStars(rating) {
+      document.querySelectorAll('.star').forEach(s => {
+        const filled = parseInt(s.dataset.value) <= rating;
+        s.textContent = filled ? '★' : '☆';
+        s.style.color  = filled ? '#461599' : '#cbc3d5';
+      });
+    }
+
+    // ── STAR RATING (edit modal) ──────────────────────────
+    document.querySelectorAll('.edit-star').forEach(star => {
+      star.addEventListener('mouseover', function () {
+        updateEditStars(parseInt(this.dataset.value));
+      });
+      star.addEventListener('mouseleave', function () {
+        updateEditStars(editRating);
+      });
+      star.addEventListener('click', function () {
+        editRating = parseInt(this.dataset.value);
+        document.getElementById('edit-rating').value = editRating;
+        updateEditStars(editRating);
+      });
+    });
+
+    function updateEditStars(rating) {
+      document.querySelectorAll('.edit-star').forEach(s => {
+        const filled = parseInt(s.dataset.value) <= rating;
+        s.textContent = filled ? '★' : '☆';
+        s.style.color  = filled ? '#461599' : '#cbc3d5';
+      });
+    }
 
     // ── COVER UPLOAD ──────────────────────────────────────
     document.getElementById('cover-input').addEventListener('change', function () {
       const file = this.files[0];
       if (!file) return;
       const reader = new FileReader();
-      reader.onload = function (e) {
+      reader.onload = e => {
         const preview = document.getElementById('cover-preview');
         preview.src = e.target.result;
         preview.classList.remove('hidden');
@@ -289,35 +437,38 @@
     // ── ADD BOOK ──────────────────────────────────────────
     document.getElementById('log-btn').addEventListener('click', function () {
       const title = document.getElementById('input-title').value.trim();
-      const author = document.getElementById('input-author').value.trim();
-      const genre = document.getElementById('input-genre').value.trim();
-      const status = document.getElementById('input-status').value;
-      const rating = document.getElementById('input-rating').value;
-      const date = document.getElementById('input-date').value;
-      const notes = document.getElementById('input-notes').value.trim();
-      const preview = document.getElementById('cover-preview');
-      const hasCover = !preview.classList.contains('hidden');
-      const coverSrc = hasCover ? preview.src : '';
-
       if (!title) { alert('Please enter a book title!'); return; }
 
-      const book = { id: Date.now(), title, author, genre, status, rating, date, notes, coverSrc };
+      const preview   = document.getElementById('cover-preview');
+      const hasCover  = !preview.classList.contains('hidden');
+
+      const book = {
+        id:       Date.now(),
+        title,
+        author:   document.getElementById('input-author').value.trim(),
+        genre:    document.getElementById('input-genre').value.trim(),
+        status:   document.getElementById('input-status').value,
+        rating:   selectedRating,
+        date:     document.getElementById('input-date').value,
+        notes:    document.getElementById('input-notes').value.trim(),
+        coverSrc: hasCover ? preview.src : ''
+      };
+
       books.unshift(book);
       localStorage.setItem('ami-books', JSON.stringify(books));
-
       resetForm();
       renderBooks();
     });
 
     // ── RESET FORM ────────────────────────────────────────
     function resetForm() {
-      document.getElementById('input-title').value = '';
-      document.getElementById('input-author').value = '';
-      document.getElementById('input-genre').value = '';
-      document.getElementById('input-rating').value = '';
-      document.getElementById('input-date').value = '';
-      document.getElementById('input-notes').value = '';
-      document.getElementById('input-status').value = 'Reading Now';
+      ['input-title','input-author','input-genre','input-date','input-notes'].forEach(id => {
+        document.getElementById(id).value = '';
+      });
+      document.getElementById('input-status').value  = 'Reading Now';
+      document.getElementById('input-rating').value  = '0';
+      selectedRating = 0;
+      updateAddStars(0);
       const preview = document.getElementById('cover-preview');
       preview.src = '';
       preview.classList.add('hidden');
@@ -326,73 +477,191 @@
       document.getElementById('cover-input').value = '';
     }
 
-    // ── DELETE BOOK ───────────────────────────────────────
+    // ── DELETE ────────────────────────────────────────────
     function deleteBook(id) {
+      if (!confirm('Remove this book?')) return;
       books = books.filter(b => b.id !== id);
       localStorage.setItem('ami-books', JSON.stringify(books));
       renderBooks();
     }
 
+    // ── OPEN EDIT ─────────────────────────────────────────
+    function openEdit(id) {
+      const book = books.find(b => b.id === id);
+      if (!book) return;
+      document.getElementById('edit-id').value     = id;
+      document.getElementById('edit-title').value  = book.title;
+      document.getElementById('edit-author').value = book.author  || '';
+      document.getElementById('edit-genre').value  = book.genre   || '';
+      document.getElementById('edit-status').value = book.status;
+      document.getElementById('edit-date').value   = book.date    || '';
+      document.getElementById('edit-notes').value  = book.notes   || '';
+      editRating = book.rating || 0;
+      document.getElementById('edit-rating').value = editRating;
+      updateEditStars(editRating);
+      document.getElementById('edit-modal').classList.add('open');
+    }
+
+    function closeEdit() {
+      document.getElementById('edit-modal').classList.remove('open');
+    }
+
+    function handleEditOverlayClick(e) {
+      if (e.target === document.getElementById('edit-modal')) closeEdit();
+    }
+
+    // ── SAVE EDIT ─────────────────────────────────────────
+    function saveEdit() {
+      const id   = parseInt(document.getElementById('edit-id').value);
+      const book = books.find(b => b.id === id);
+      if (!book) return;
+      book.title  = document.getElementById('edit-title').value.trim();
+      book.author = document.getElementById('edit-author').value.trim();
+      book.genre  = document.getElementById('edit-genre').value.trim();
+      book.status = document.getElementById('edit-status').value;
+      book.rating = parseInt(document.getElementById('edit-rating').value) || 0;
+      book.date   = document.getElementById('edit-date').value;
+      book.notes  = document.getElementById('edit-notes').value.trim();
+      localStorage.setItem('ami-books', JSON.stringify(books));
+      closeEdit();
+      renderBooks();
+    }
+
+    // ── SEARCH ────────────────────────────────────────────
+    function openSearch() {
+      document.getElementById('search-overlay').classList.add('open');
+      document.getElementById('search-input').value = '';
+      document.getElementById('search-results').innerHTML = '';
+      document.getElementById('search-hint').style.display = 'block';
+      setTimeout(() => document.getElementById('search-input').focus(), 50);
+    }
+
+    function closeSearch() {
+      document.getElementById('search-overlay').classList.remove('open');
+    }
+
+    function handleSearchOverlayClick(e) {
+      if (e.target === document.getElementById('search-overlay')) closeSearch();
+    }
+
+    function doSearch() {
+      const q = document.getElementById('search-input').value.trim().toLowerCase();
+      const hint = document.getElementById('search-hint');
+      const resultsEl = document.getElementById('search-results');
+
+      if (!q) {
+        resultsEl.innerHTML = '';
+        hint.style.display = 'block';
+        return;
+      }
+      hint.style.display = 'none';
+
+      const matches = books.filter(b =>
+        b.title.toLowerCase().includes(q) ||
+        (b.author && b.author.toLowerCase().includes(q)) ||
+        (b.genre  && b.genre.toLowerCase().includes(q))
+      );
+
+      if (matches.length === 0) {
+        resultsEl.innerHTML = `<p style="text-align:center;color:#7b7484;font-style:italic;padding:1rem;">No books found for "${q}"</p>`;
+        return;
+      }
+
+      resultsEl.innerHTML = matches.map(b => `
+        <div class="result-item" onclick="closeSearch()">
+          ${b.coverSrc
+            ? `<img src="${b.coverSrc}" style="width:40px;height:54px;object-fit:cover;border-radius:6px;flex-shrink:0;" alt=""/>`
+            : `<div style="width:40px;height:54px;background:#ede7f6;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">📖</div>`
+          }
+          <div>
+            <div style="font-weight:600;color:#1e1927;">${b.title}</div>
+            <div style="font-size:13px;color:#494453;">${b.author || ''}${b.genre ? ' · ' + b.genre : ''}</div>
+            <div style="font-size:11px;color:#7b7484;margin-top:2px;">${b.status}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // close search with Escape key
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { closeSearch(); closeEdit(); }
+    });
+
     // ── FILTER ────────────────────────────────────────────
     function filterBooks(filter) {
       currentFilter = filter;
       document.querySelectorAll('.filter-btn').forEach(btn => {
-        const isActive = btn.dataset.filter === filter;
-        btn.classList.toggle('active-filter', isActive);
-        btn.classList.toggle('bg-primary', isActive);
-        btn.classList.toggle('text-white', isActive);
-        btn.classList.toggle('border-primary', isActive);
-        btn.classList.toggle('text-on-surface-variant', !isActive);
-        btn.classList.toggle('border-outline-variant', !isActive);
+        const active = btn.dataset.filter === filter;
+        btn.classList.toggle('bg-primary',           active);
+        btn.classList.toggle('text-white',           active);
+        btn.classList.toggle('border-primary',       active);
+        btn.classList.toggle('text-on-surface-variant', !active);
+        btn.classList.toggle('border-outline-variant',  !active);
       });
       renderBooks();
     }
 
+    // ── STARS DISPLAY (card) ──────────────────────────────
+    function starsDisplay(rating) {
+      if (!rating) return '';
+      return `<div style="color:#461599;font-size:18px;margin-top:4px;">
+        ${'★'.repeat(rating)}<span style="color:#cbc3d5;">${'☆'.repeat(5 - rating)}</span>
+      </div>`;
+    }
+
     // ── RENDER BOOKS ──────────────────────────────────────
     function renderBooks() {
-      const grid = document.getElementById('books-grid');
+      const grid       = document.getElementById('books-grid');
       const emptyState = document.getElementById('empty-state');
-      const filtered = currentFilter === 'all' ? books : books.filter(b => b.status === currentFilter);
+      const filtered   = currentFilter === 'all'
+        ? books
+        : books.filter(b => b.status === currentFilter);
 
       if (filtered.length === 0) {
         grid.innerHTML = '';
         emptyState.style.display = 'block';
         return;
       }
-
       emptyState.style.display = 'none';
 
       grid.innerHTML = filtered.map(book => `
-        <div class="bg-surface-container-lowest p-gutter rounded-xl editorial-card flex gap-gutter border border-outline-variant/20 h-full relative">
+        <div class="bg-surface-container-lowest p-gutter rounded-xl editorial-card flex gap-gutter border border-outline-variant/20 relative">
 
-          <!-- Delete button -->
-          <button onclick="deleteBook(${book.id})" class="absolute top-3 right-3 text-on-surface-variant hover:text-error transition-colors p-1 rounded-full hover:bg-surface-container" title="Remove">
-            <span class="material-symbols-outlined text-[18px]">close</span>
-          </button>
+          <!-- Action buttons -->
+          <div style="position:absolute;top:10px;right:10px;display:flex;gap:6px;">
+            <button onclick="openEdit(${book.id})" title="Edit"
+              style="background:none;border:none;cursor:pointer;color:#cbc3d5;font-size:16px;padding:4px;border-radius:50%;transition:color 0.15s;"
+              onmouseover="this.style.color='#461599'" onmouseout="this.style.color='#cbc3d5'">✏️</button>
+            <button onclick="deleteBook(${book.id})" title="Remove"
+              style="background:none;border:none;cursor:pointer;color:#cbc3d5;font-size:16px;padding:4px;border-radius:50%;transition:color 0.15s;"
+              onmouseover="this.style.color='#ba1a1a'" onmouseout="this.style.color='#cbc3d5'">✕</button>
+          </div>
 
           <!-- Cover -->
           ${book.coverSrc
-            ? `<div class="w-32 md:w-40 h-48 md:h-56 flex-shrink-0 bg-surface-variant rounded-md overflow-hidden shadow-sm">
-                <img class="w-full h-full object-cover" src="${book.coverSrc}" alt="${book.title} cover"/>
+            ? `<div style="width:120px;height:160px;flex-shrink:0;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+                <img style="width:100%;height:100%;object-fit:cover;" src="${book.coverSrc}" alt="${book.title}"/>
                </div>`
-            : `<div class="w-32 md:w-40 h-48 md:h-56 flex-shrink-0 bg-surface-container rounded-md flex items-center justify-center text-4xl">📖</div>`
+            : `<div style="width:120px;height:160px;flex-shrink:0;border-radius:8px;background:#ede7f6;display:flex;align-items:center;justify-content:center;font-size:2.5rem;">📖</div>`
           }
 
           <!-- Info -->
-          <div class="flex flex-col justify-between py-1 pr-6">
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;justify-content:space-between;padding:4px 2.5rem 4px 0;">
             <div>
-              ${book.genre ? `<span class="font-label-sm text-label-sm text-on-secondary-container bg-secondary-container px-2 py-0.5 rounded-full mb-2 inline-block">${book.genre}</span>` : ''}
-              <h4 class="font-headline-md text-headline-md text-on-surface leading-tight mb-1">${book.title}</h4>
-              ${book.author ? `<p class="font-body-md text-on-surface-variant opacity-80 mb-stack-md">${book.author}</p>` : ''}
-              ${book.notes ? `<p class="font-body-md text-on-surface-variant line-clamp-3 text-sm italic">"${book.notes}"</p>` : ''}
+              ${book.genre
+                ? `<span style="background:#c5a3ff;color:#533487;font-size:11px;font-weight:600;padding:2px 10px;border-radius:999px;display:inline-block;margin-bottom:6px;letter-spacing:0.03em;">${book.genre}</span>`
+                : ''
+              }
+              <h4 style="font-family:Literata,serif;font-size:20px;font-weight:600;color:#1e1927;line-height:1.3;margin-bottom:4px;">${book.title}</h4>
+              ${book.author ? `<p style="font-size:14px;color:#494453;margin-bottom:6px;">${book.author}</p>` : ''}
+              ${book.notes  ? `<p style="font-size:13px;font-style:italic;color:#494453;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">"${book.notes}"</p>` : ''}
             </div>
-            <div class="flex items-center gap-gutter mt-2 flex-wrap">
-              ${book.rating ? `<div class="flex items-center text-primary gap-1">
-                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
-                <span class="font-label-sm">${book.rating}</span>
-              </div>` : ''}
-              ${book.rating && (book.status || book.date) ? `<span class="text-outline-variant">|</span>` : ''}
-              <span class="font-label-sm text-on-surface-variant">${book.status}${book.date ? ' · ' + new Date(book.date).toLocaleDateString('en-IN', {day:'numeric', month:'short', year:'numeric'}) : ''}</span>
+            <div style="margin-top:8px;">
+              ${starsDisplay(book.rating)}
+              <div style="display:flex;align-items:center;gap:8px;margin-top:4px;flex-wrap:wrap;">
+                <span style="font-size:11px;font-weight:600;color:#7b7484;letter-spacing:0.03em;">${book.status}</span>
+                ${book.date ? `<span style="color:#cbc3d5;">·</span><span style="font-size:11px;color:#7b7484;">${new Date(book.date).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}</span>` : ''}
+              </div>
             </div>
           </div>
         </div>
