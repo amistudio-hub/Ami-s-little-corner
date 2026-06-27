@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Ami's Little Corner</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600;7..72,700&family=Inter:wght@400;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "background": "#fef7ff",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#f9f0ff",
+            "surface-container": "#f4eafd",
+            "surface-container-high": "#eee4f8",
+            "surface-variant": "#e9dff2",
+            "on-surface": "#1e1927",
+            "on-surface-variant": "#494453",
+            "primary": "#461599",
+            "on-primary": "#ffffff",
+            "secondary-container": "#c5a3ff",
+            "on-secondary-container": "#533487",
+            "outline-variant": "#cbc3d5",
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      background-color: #f5f0fc;
+      color: #1e1927;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-8px); }
+    }
+    @keyframes cardFloat {
+      0%, 100% { transform: translateY(0px) rotate(-1deg); }
+      50%       { transform: translateY(-6px) rotate(-1deg); }
+    }
+    @keyframes cardFloat2 {
+      0%, 100% { transform: translateY(0px) rotate(1deg); }
+      50%       { transform: translateY(-6px) rotate(1deg); }
+    }
+
+    /* Girl chasing cat pixel animation */
+    @keyframes runAcross {
+      0%   { left: -180px; }
+      100% { left: calc(100% + 20px); }
+    }
+    @keyframes catRun {
+      0%   { left: -80px; }
+      100% { left: calc(100% + 20px); }
+    }
+    @keyframes legSwing {
+      0%, 100% { transform: rotate(-20deg); }
+      50%       { transform: rotate(20deg); }
+    }
+    @keyframes armSwing {
+      0%, 100% { transform: rotate(30deg); }
+      50%       { transform: rotate(-20deg); }
+    }
+    @keyframes tailWag {
+      0%, 100% { transform: rotate(-30deg); transform-origin: bottom left; }
+      50%       { transform: rotate(30deg); transform-origin: bottom left; }
+    }
+    @keyframes earWiggle {
+      0%, 100% { transform: rotate(0deg); }
+      50%       { transform: rotate(-15deg); }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-4px); }
+    }
+
+    .animate-fade-up { animation: fadeUp 0.7s ease both; }
+    .animate-fade-up-2 { animation: fadeUp 0.7s ease 0.15s both; }
+    .animate-fade-up-3 { animation: fadeUp 0.7s ease 0.3s both; }
+    .animate-fade-up-4 { animation: fadeUp 0.7s ease 0.45s both; }
+    .animate-fade-in { animation: fadeIn 1s ease 0.6s both; }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      font-family: 'Material Symbols Outlined';
+      font-style: normal;
+      vertical-align: middle;
+    }
+
+    /* ── PIXEL SCENE ── */
+    .pixel-scene {
+      position: relative;
+      width: 100%;
+      height: 90px;
+      overflow: hidden;
+      margin: 0 auto;
+    }
+
+    /* Ground line */
+    .pixel-scene::after {
+      content: '';
+      position: absolute;
+      bottom: 18px;
+      left: 0; right: 0;
+      height: 2px;
+      background: repeating-linear-gradient(90deg, #c5a3ff 0px, #c5a3ff 8px, transparent 8px, transparent 12px);
+      opacity: 0.5;
+    }
+
+    /* CAT */
+    .cat {
+      position: absolute;
+      bottom: 20px;
+      animation: catRun 8s linear infinite;
+      animation-delay: 0s;
+    }
+    .cat-body {
+      width: 28px;
+      height: 18px;
+      background: #7c4fa0;
+      image-rendering: pixelated;
+      position: relative;
+      border-radius: 2px;
+      animation: bounce 0.25s linear infinite;
+    }
+    .cat-head {
+      width: 20px;
+      height: 16px;
+      background: #7c4fa0;
+      position: absolute;
+      top: -12px;
+      right: -4px;
+      border-radius: 2px;
+    }
+    .cat-ear-l, .cat-ear-r {
+      width: 6px;
+      height: 7px;
+      background: #461599;
+      position: absolute;
+      top: -6px;
+      clip-path: polygon(0 100%, 50% 0, 100% 100%);
+    }
+    .cat-ear-l { left: 2px; animation: earWiggle 0.3s linear infinite; }
+    .cat-ear-r { left: 10px; animation: earWiggle 0.3s linear infinite 0.15s; }
+    .cat-eye {
+      width: 3px; height: 3px;
+      background: #fff;
+      position: absolute;
+      top: 5px;
+      border-radius: 1px;
+    }
+    .cat-eye-l { left: 4px; }
+    .cat-eye-r { left: 11px; }
+    .cat-nose {
+      width: 3px; height: 2px;
+      background: #f9a0c0;
+      position: absolute;
+      top: 9px; left: 8px;
+      border-radius: 1px;
+    }
+    .cat-leg {
+      width: 5px; height: 10px;
+      background: #6a3fa0;
+      position: absolute;
+      bottom: -10px;
+      border-radius: 1px;
+    }
+    .cat-leg-1 { left: 3px;  animation: legSwing 0.25s linear infinite; }
+    .cat-leg-2 { left: 9px;  animation: legSwing 0.25s linear infinite 0.125s; }
+    .cat-leg-3 { left: 15px; animation: legSwing 0.25s linear infinite 0.0625s; }
+    .cat-leg-4 { left: 21px; animation: legSwing 0.25s linear infinite 0.1875s; }
+    .cat-tail {
+      width: 14px; height: 5px;
+      background: #7c4fa0;
+      position: absolute;
+      top: 4px; left: -13px;
+      border-radius: 3px;
+      transform-origin: right center;
+      animation: tailWag 0.3s linear infinite;
+    }
+
+    /* GIRL */
+    .girl {
+      position: absolute;
+      bottom: 20px;
+      animation: runAcross 9s linear infinite;
+      animation-delay: 0s;
+    }
+    /* pixel girl body */
+    .girl-body {
+      position: relative;
+      width: 24px;
+      animation: bounce 0.25s linear infinite;
+    }
+    .girl-head {
+      width: 18px; height: 18px;
+      background: #f5c5a3;
+      margin: 0 auto;
+      border-radius: 3px;
+      position: relative;
+    }
+    .girl-hair {
+      width: 20px; height: 8px;
+      background: #2d1b4e;
+      position: absolute;
+      top: -4px; left: -1px;
+      border-radius: 3px 3px 0 0;
+    }
+    .girl-hair-side {
+      width: 4px; height: 12px;
+      background: #2d1b4e;
+      position: absolute;
+      top: 0px;
+      border-radius: 2px;
+    }
+    .girl-hair-side-l { left: -1px; }
+    .girl-hair-side-r { right: -1px; }
+    .girl-eye {
+      width: 3px; height: 3px;
+      background: #2d1b4e;
+      position: absolute;
+      top: 8px;
+      border-radius: 1px;
+    }
+    .girl-eye-l { left: 3px; }
+    .girl-eye-r { left: 11px; }
+    .girl-torso {
+      width: 20px; height: 22px;
+      background: #9c6fde;
+      margin: 0 auto;
+      border-radius: 2px;
+      position: relative;
+    }
+    .girl-arm {
+      width: 5px; height: 16px;
+      background: #f5c5a3;
+      position: absolute;
+      top: 2px;
+      border-radius: 2px;
+    }
+    .girl-arm-l {
+      left: -5px;
+      animation: armSwing 0.25s linear infinite;
+      transform-origin: top center;
+    }
+    .girl-arm-r {
+      right: -5px;
+      animation: armSwing 0.25s linear infinite 0.125s;
+      transform-origin: top center;
+    }
+    .girl-skirt {
+      width: 26px; height: 12px;
+      background: #7c4fa0;
+      margin: 0 auto;
+      border-radius: 0 0 4px 4px;
+      position: relative;
+      top: -2px;
+    }
+    .girl-leg {
+      width: 6px; height: 16px;
+      background: #f5c5a3;
+      position: absolute;
+      bottom: -14px;
+      border-radius: 2px;
+    }
+    .girl-leg-l {
+      left: 4px;
+      animation: legSwing 0.25s linear infinite;
+      transform-origin: top center;
+    }
+    .girl-leg-r {
+      right: 4px;
+      animation: legSwing 0.25s linear infinite 0.125s;
+      transform-origin: top center;
+    }
+    .girl-shoe {
+      width: 8px; height: 5px;
+      background: #461599;
+      position: absolute;
+      bottom: -5px;
+      left: -1px;
+      border-radius: 1px;
+    }
+
+    /* ── CARD HOVER ── */
+    .tracker-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .tracker-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px -10px rgba(70, 21, 153, 0.15);
+    }
+
+    /* ── STAT COUNTER ── */
+    .stat-box {
+      transition: transform 0.2s ease;
+    }
+    .stat-box:hover {
+      transform: scale(1.04);
+    }
+
+    /* ── SPARKLE ── */
+    @keyframes sparkle {
+      0%, 100% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+      50%       { opacity: 1; transform: scale(1) rotate(180deg); }
+    }
+    .sparkle {
+      position: absolute;
+      font-size: 14px;
+      animation: sparkle 2s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes pawAppear {
+      0%   { opacity: 0; }
+      20%  { opacity: 0.7; }
+      100% { opacity: 0; }
+    }
+    .paw {
+  position: absolute;
+  bottom: 14px;
+  font-size: 12px;
+  animation: pawAppear 8s linear infinite;
+  pointer-events: none;
+    }
+    .paw:nth-child(1) { left: 10%; animation-delay: 1s; }
+    .paw:nth-child(2) { left: 22%; animation-delay: 2s; transform: rotate(20deg); }
+    .paw:nth-child(3) { left: 36%; animation-delay: 3s; }
+    .paw:nth-child(4) { left: 50%; animation-delay: 4s; transform: rotate(-15deg); }
+    .paw:nth-child(5) { left: 64%; animation-delay: 5s; }
+    .paw:nth-child(6) { left: 78%; animation-delay: 6s; transform: rotate(10deg); }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <header class="w-full h-20 flex justify-between items-center max-w-[1200px] mx-auto px-6 sticky top-0 z-50" style="background:#f5f0fc;">
+    <div style="font-family:'Literata',serif;font-size:20px;font-weight:700;color:#461599;">Ami's Little Corner</div>
+    <nav class="hidden md:flex items-center gap-6">
+      <a class="font-semibold text-[#461599] border-b-2 border-[#461599] pb-1" href="home.html">Home</a>
+      <a class="text-[#494453] font-medium hover:text-[#461599] transition-colors" href="index.html">Books</a>
+      <a class="text-[#494453] font-medium hover:text-[#461599] transition-colors" href="series.html">Series</a>
+      <a class="text-[#494453] font-medium hover:text-[#461599] transition-colors" href="schedule.html">Schedule</a>
+      <a class="text-[#494453] font-medium hover:text-[#461599] transition-colors" href="about.html">About</a>
+    </nav>
+    <div class="md:hidden flex gap-2">
+      <a href="index.html" class="text-[#494453] text-sm font-medium">Books</a>
+      <a href="series.html" class="text-[#494453] text-sm font-medium">Series</a>
+    </div>
+  </header>
+
+  <main class="max-w-[1200px] mx-auto px-6">
+
+    <!-- ── HERO ── -->
+    <section class="pt-16 pb-12 text-center relative">
+
+      <!-- Floating sparkles -->
+      <span class="sparkle" style="top:10px;left:12%;animation-delay:0s;">✦</span>
+      <span class="sparkle" style="top:30px;right:15%;animation-delay:0.7s;">✦</span>
+      <span class="sparkle" style="top:80px;left:5%;animation-delay:1.2s;font-size:10px;">✦</span>
+      <span class="sparkle" style="top:60px;right:6%;animation-delay:0.4s;font-size:10px;">✦</span>
+
+      <p class="animate-fade-up text-sm font-semibold tracking-widest uppercase mb-4" style="color:#9c6fde;letter-spacing:0.12em;">
+        ✦ a personal little world ✦
+      </p>
+
+      <h1 class="animate-fade-up-2" style="font-family:'Literata',serif;font-size:clamp(42px,7vw,80px);font-weight:700;line-height:1.05;letter-spacing:-0.02em;color:#1e1927;">
+        Ami's<br/>
+        <span style="color:#461599;">Little Corner</span>
+      </h1>
+
+      <p class="animate-fade-up-3 mt-6 mx-auto max-w-md" style="font-size:18px;line-height:1.6;color:#494453;">
+        A cozy little space to track the books I read<br/>and the series that keep me up at night 🌙
+      </p>
+
+      <div class="animate-fade-up-4 flex justify-center gap-4 mt-8 flex-wrap">
+        <a href="index.html" class="px-6 py-3 rounded-full font-bold text-white transition-all hover:opacity-90 active:scale-95"
+           style="background:#461599;font-size:15px;">
+          📚 My Books
+        </a>
+        <a href="series.html" class="px-6 py-3 rounded-full font-bold transition-all hover:opacity-90 active:scale-95"
+           style="background:#ede7f6;color:#461599;font-size:15px;">
+          🎬 My Series
+        </a>
+      </div>
+    </section>
+
+    <!-- ── PIXEL ANIMATION SCENE ── -->
+    <div class="animate-fade-in relative mx-auto mb-16" style="max-width:700px;">
+      <div class="pixel-scene">
+        <!-- Paw prints -->
+        <span class="paw">🐾</span>
+        <span class="paw">🐾</span>
+        <span class="paw">🐾</span>
+        <span class="paw">🐾</span>
+        <span class="paw">🐾</span>
+        <span class="paw">🐾</span>
+
+        <!-- CAT running ahead -->
+        <div class="cat" style="animation-delay: 0s;">
+          <div class="cat-body">
+            <div class="cat-tail"></div>
+            <div class="cat-head">
+              <div class="cat-ear-l"></div>
+              <div class="cat-ear-r"></div>
+              <div class="cat-eye cat-eye-l"></div>
+              <div class="cat-eye cat-eye-r"></div>
+              <div class="cat-nose"></div>
+            </div>
+            <div class="cat-leg cat-leg-1"></div>
+            <div class="cat-leg cat-leg-2"></div>
+            <div class="cat-leg cat-leg-3"></div>
+            <div class="cat-leg cat-leg-4"></div>
+          </div>
+        </div>
+
+        <!-- GIRL chasing behind -->
+        <div class="girl" style="animation-delay: 0s;">
+          <div class="girl-body">
+            <div class="girl-head" style="position:relative;">
+              <div class="girl-hair"></div>
+              <div class="girl-hair-side girl-hair-side-l"></div>
+              <div class="girl-hair-side girl-hair-side-r"></div>
+              <div class="girl-eye girl-eye-l"></div>
+              <div class="girl-eye girl-eye-r"></div>
+            </div>
+            <div class="girl-torso" style="position:relative;">
+              <div class="girl-arm girl-arm-l"></div>
+              <div class="girl-arm girl-arm-r"></div>
+            </div>
+            <div class="girl-skirt" style="position:relative;">
+              <div class="girl-leg girl-leg-l">
+                <div class="girl-shoe"></div>
+              </div>
+              <div class="girl-leg girl-leg-r">
+                <div class="girl-shoe"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <p class="text-center text-sm mt-1" style="color:#9c6fde;font-style:italic;">still chasing that cat 🐱</p>
+    </div>
+
+    <!-- ── STATS ── -->
+    <section class="animate-fade-in mb-16">
+      <div class="grid grid-cols-3 gap-4 max-w-lg mx-auto">
+        <div class="stat-box text-center p-4 rounded-2xl" style="background:#ffffff;box-shadow:0 4px 20px -4px rgba(70,21,153,0.06);">
+          <div id="stat-books" style="font-family:'Literata',serif;font-size:36px;font-weight:700;color:#461599;">0</div>
+          <div style="font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#7b7484;margin-top:2px;">Books</div>
+        </div>
+        <div class="stat-box text-center p-4 rounded-2xl" style="background:#ffffff;box-shadow:0 4px 20px -4px rgba(70,21,153,0.06);">
+          <div id="stat-series" style="font-family:'Literata',serif;font-size:36px;font-weight:700;color:#461599;">0</div>
+          <div style="font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#7b7484;margin-top:2px;">Series</div>
+        </div>
+        <div class="stat-box text-center p-4 rounded-2xl" style="background:#ffffff;box-shadow:0 4px 20px -4px rgba(70,21,153,0.06);">
+          <div id="stat-watching" style="font-family:'Literata',serif;font-size:36px;font-weight:700;color:#461599;">0</div>
+          <div style="font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#7b7484;margin-top:2px;">Watching</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TRACKER CARDS ── -->
+    <section class="mb-20">
+      <p class="text-center text-sm font-semibold tracking-widest uppercase mb-8" style="color:#9c6fde;letter-spacing:0.1em;">✦ what's inside ✦</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+
+        <!-- Books card -->
+        <a href="index.html" class="tracker-card block rounded-2xl p-8 relative overflow-hidden"
+           style="background:#ffffff;box-shadow:0 8px 30px -8px rgba(70,21,153,0.08);transform:rotate(-1deg);">
+          <div style="position:absolute;top:-20px;right:-20px;font-size:80px;opacity:0.07;line-height:1;">📚</div>
+          <div style="font-size:36px;margin-bottom:12px;">📚</div>
+          <h2 style="font-family:'Literata',serif;font-size:24px;font-weight:700;color:#1e1927;margin-bottom:8px;">Reading Log</h2>
+          <p style="color:#494453;font-size:15px;line-height:1.5;">Track every book — ratings, thoughts, what resonated. Your own little library.</p>
+          <div class="mt-6 flex items-center gap-2" style="color:#461599;font-weight:600;font-size:14px;">
+            <span>Open my shelf</span>
+            <span style="font-family:'Material Symbols Outlined';">arrow_forward</span>
+          </div>
+        </a>
+
+        <!-- Series card -->
+        <a href="series.html" class="tracker-card block rounded-2xl p-8 relative overflow-hidden"
+           style="background:#ffffff;box-shadow:0 8px 30px -8px rgba(70,21,153,0.08);transform:rotate(1deg);">
+          <div style="position:absolute;top:-20px;right:-20px;font-size:80px;opacity:0.07;line-height:1;">🎬</div>
+          <div style="font-size:36px;margin-bottom:12px;">🎬</div>
+          <h2 style="font-family:'Literata',serif;font-size:24px;font-weight:700;color:#1e1927;margin-bottom:8px;">Watchlist</h2>
+          <p style="color:#494453;font-size:15px;line-height:1.5;">Every series, every episode. Track progress, next air dates, and what you dropped.</p>
+          <div class="mt-6 flex items-center gap-2" style="color:#461599;font-weight:600;font-size:14px;">
+            <span>Open watchlist</span>
+            <span style="font-family:'Material Symbols Outlined';">arrow_forward</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ── SCHEDULE TEASER ── -->
+    <section class="mb-24 text-center">
+      <div class="inline-block rounded-2xl px-8 py-6 max-w-md" style="background:#ede7f6;">
+        <div style="font-size:28px;margin-bottom:8px;">📅</div>
+        <h3 style="font-family:'Literata',serif;font-size:20px;font-weight:700;color:#1e1927;margin-bottom:6px;">Upcoming Episodes</h3>
+        <p style="color:#494453;font-size:14px;line-height:1.5;margin-bottom:16px;">See what's airing this week across all your series in one place.</p>
+        <a href="schedule.html" class="inline-block px-5 py-2 rounded-full font-bold text-sm transition-all hover:opacity-90"
+           style="background:#461599;color:#fff;">
+          View Schedule
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full py-16 flex flex-col items-center gap-4 px-6" style="background:#f9f0ff;">
+    <div style="font-family:'Literata',serif;font-size:20px;font-weight:700;color:#461599;">Ami's Little Corner</div>
+    <nav class="flex gap-6 flex-wrap justify-center">
+      <a class="text-[#494453] hover:text-[#461599] underline transition-all text-sm" href="home.html">Home</a>
+      <a class="text-[#494453] hover:text-[#461599] underline transition-all text-sm" href="index.html">Books</a>
+      <a class="text-[#494453] hover:text-[#461599] underline transition-all text-sm" href="series.html">Series</a>
+      <a class="text-[#494453] hover:text-[#461599] underline transition-all text-sm" href="schedule.html">Schedule</a>
+      <a class="text-[#494453] hover:text-[#461599] underline transition-all text-sm" href="about.html">About</a>
+    </nav>
+    <p class="text-sm" style="color:#7b7484;">© <span id="footer-year"></span> Ami's Little Corner. Keep tracking your joy. 💜</p>
+  </footer>
+
+  <!-- Mobile Bottom Nav -->
+  <div class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t h-16 flex justify-around items-center px-4 z-50" style="border-color:#e9dff2;">
+    <a href="home.html" class="flex flex-col items-center" style="color:#461599;">
+      <span style="font-family:'Material Symbols Outlined';font-variation-settings:'FILL' 1;">home</span>
+      <span style="font-size:10px;font-weight:700;">Home</span>
+    </a>
+    <a href="index.html" class="flex flex-col items-center" style="color:#494453;">
+      <span style="font-family:'Material Symbols Outlined';">auto_stories</span>
+      <span style="font-size:10px;">Books</span>
+    </a>
+    <a href="series.html" class="flex flex-col items-center" style="color:#494453;">
+      <span style="font-family:'Material Symbols Outlined';">movie</span>
+      <span style="font-size:10px;">Series</span>
+    </a>
+    <a href="schedule.html" class="flex flex-col items-center" style="color:#494453;">
+      <span style="font-family:'Material Symbols Outlined';">calendar_today</span>
+      <span style="font-size:10px;">Schedule</span>
+    </a>
+    <a href="about.html" class="flex flex-col items-center" style="color:#494453;">
+      <span style="font-family:'Material Symbols Outlined';">favorite</span>
+      <span style="font-size:10px;">About</span>
+    </a>
+  </div>
+
+  <script>
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+    // Load stats from localStorage
+    const books  = JSON.parse(localStorage.getItem('ami-books')  || '[]');
+    const series = JSON.parse(localStorage.getItem('ami-series') || '[]');
+    const watching = series.filter(s => s.status === 'Watching').length;
+
+    // Animate count up
+    function countUp(el, target, duration) {
+      if (target === 0) return;
+      const step = Math.ceil(target / (duration / 30));
+      let current = 0;
+      const timer = setInterval(() => {
+        current = Math.min(current + step, target);
+        el.textContent = current;
+        if (current >= target) clearInterval(timer);
+      }, 30);
+    }
+
+    setTimeout(() => {
+      countUp(document.getElementById('stat-books'),    books.length,  600);
+      countUp(document.getElementById('stat-series'),   series.length, 600);
+      countUp(document.getElementById('stat-watching'), watching,      600);
+    }, 400);
+  </script>
+
+</body>
+</html>

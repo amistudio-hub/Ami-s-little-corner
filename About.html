@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>About — Ami's Little Corner</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600;7..72,700&family=Inter:wght@400;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; }
+    body { background-color: #f5f0fc; color: #1e1927; font-family: 'Inter', sans-serif; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-10px); }
+    }
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(-3deg); }
+      50%       { transform: rotate(3deg); }
+    }
+    @keyframes sparkle {
+      0%, 100% { opacity: 0; transform: scale(0.5); }
+      50%       { opacity: 1; transform: scale(1); }
+    }
+
+    .fade-up   { animation: fadeUp 0.6s ease both; }
+    .fade-up-2 { animation: fadeUp 0.6s ease 0.15s both; }
+    .fade-up-3 { animation: fadeUp 0.6s ease 0.3s both; }
+    .fade-up-4 { animation: fadeUp 0.6s ease 0.45s both; }
+    .float-anim { animation: float 3s ease-in-out infinite; }
+    .wiggle-anim { animation: wiggle 2s ease-in-out infinite; }
+
+    .sparkle {
+      position: absolute;
+      animation: sparkle 2s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      font-family: 'Material Symbols Outlined';
+      font-style: normal;
+      vertical-align: middle;
+    }
+
+    .fun-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 20px -4px rgba(70, 21, 153, 0.06);
+      transition: transform 0.2s ease;
+    }
+    .fun-card:hover { transform: translateY(-4px); }
+
+    .love-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #ede7f6;
+      color: #461599;
+      margin: 4px;
+      transition: transform 0.2s ease;
+    }
+    .love-tag:hover { transform: scale(1.06); background: #461599; color: #fff; }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <header class="w-full h-20 flex justify-between items-center max-w-[1200px] mx-auto px-6 sticky top-0 z-50" style="background:#f5f0fc;">
+    <div style="font-family:'Literata',serif;font-size:20px;font-weight:700;color:#461599;">Ami's Little Corner</div>
+    <nav class="hidden md:flex items-center gap-6">
+      <a class="text-[#494453] font-medium hover:text-[#461599] transition-colors" href="home.html">Home</a>
+      <a class="text-[#494453] font-medium hover:text-[#461599] transition-colors" href="index.html">Books</a>
+      <a class="text-[#494453] font-medium hover:text-[#461599] transition-colors" href="series.html">Series</a>
+      <a class="text-[#494453] font-medium hover:text-[#461599] transition-colors" href="schedule.html">Schedule</a>
+      <a class="font-semibold text-[#461599] border-b-2 border-[#461599] pb-1" href="about.html">About</a>
+    </nav>
+  </header>
+
+  <main class="max-w-[800px] mx-auto px-6 py-16">
+
+    <!-- Header -->
+    <div class="text-center mb-16 relative">
+      <span class="sparkle" style="top:-10px;left:20%;font-size:16px;animation-delay:0s;">✦</span>
+      <span class="sparkle" style="top:20px;right:18%;font-size:12px;animation-delay:0.8s;">✦</span>
+
+      <!-- Avatar -->
+      <div class="float-anim inline-block mb-6">
+        <div style="width:100px;height:100px;border-radius:50%;overflow:hidden;margin:0 auto;box-shadow:0 8px 24px -4px rgba(70,21,153,0.2);border:3px solid #c5a3ff;">
+         <img src="your-photo.jpg.jpeg" alt="Ami" style="width:100%;height:100%;object-fit:cover;"/>
+        </div>
+      </div>
+
+      <p class="fade-up text-sm font-semibold tracking-widest uppercase mb-3" style="color:#9c6fde;">✦ hello there ✦</p>
+      <h1 class="fade-up-2" style="font-family:'Literata',serif;font-size:clamp(36px,6vw,56px);font-weight:700;color:#1e1927;line-height:1.1;">
+        I'm <span style="color:#461599;">Ami</span> 👋
+      </h1>
+      <p class="fade-up-3 mt-4 mx-auto max-w-sm" style="font-size:17px;line-height:1.7;color:#494453;">
+        A girl who reads too many books, starts too many series, and built a little corner of the internet to keep track of it all.
+      </p>
+    </div>
+
+    <!-- About blurb -->
+    <div class="fade-up-3 fun-card mb-6 relative overflow-hidden">
+      <div style="position:absolute;top:-10px;right:-10px;font-size:60px;opacity:0.06;">📖</div>
+      <h2 style="font-family:'Literata',serif;font-size:20px;font-weight:700;color:#1e1927;margin-bottom:12px;">A little about me</h2>
+      <p style="color:#494453;line-height:1.8;font-size:15px;">
+        Hi! I'm Ami — a cozy soul who finds comfort in stories, whether they're in pages or on a screen. 
+        I believe every book deserves a second read and every series deserves a chance. 
+        I built this little corner as a personal sanctuary — somewhere to remember the plots that made me cry, 
+        the characters I fell in love with, and the episodes I'm desperately waiting for. 
+        If you somehow stumbled here, welcome to my world. 🌙
+      </p>
+    </div>
+
+    <!-- Things I love -->
+    <div class="fade-up-4 fun-card mb-6">
+      <h2 style="font-family:'Literata',serif;font-size:20px;font-weight:700;color:#1e1927;margin-bottom:14px;">Things I love ✨</h2>
+      <div>
+        <span class="love-tag">📚 Fantasy books</span>
+        <span class="love-tag">🎬 K-dramas</span>
+        <span class="love-tag">🌙 Late night reads</span>
+        <span class="love-tag">☕ Tea while watching</span>
+        <span class="love-tag">🐱 Cats obviously</span>
+        <span class="love-tag">🎵 Soft indie music</span>
+        <span class="love-tag">✨ Slow mornings</span>
+        <span class="love-tag">💜 Purple everything</span>
+        <span class="love-tag">🌸 Studio Ghibli</span>
+        <span class="love-tag">📝 Taking notes while reading</span>
+      </div>
+    </div>
+
+    <!-- Fun facts -->
+    <div class="fade-up-4 grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+      <div class="fun-card">
+        <div style="font-size:28px;margin-bottom:8px;">📖</div>
+        <h3 style="font-family:'Literata',serif;font-size:16px;font-weight:700;color:#1e1927;margin-bottom:6px;">Current read</h3>
+        <p style="color:#494453;font-size:14px;line-height:1.6;">Probably something with magic, a slow burn romance, and a protagonist who needs a hug.</p>
+      </div>
+      <div class="fun-card">
+        <div style="font-size:28px;margin-bottom:8px;">🎬</div>
+        <h3 style="font-family:'Literata',serif;font-size:16px;font-weight:700;color:#1e1927;margin-bottom:6px;">Currently watching</h3>
+        <p style="color:#494453;font-size:14px;line-height:1.6;">A K-drama that made me pause at 2am because the chemistry was too good.</p>
+      </div>
+      <div class="fun-card">
+        <div style="font-size:28px;margin-bottom:8px;">🐱</div>
+        <h3 style="font-family:'Literata',serif;font-size:16px;font-weight:700;color:#1e1927;margin-bottom:6px;">Cat status</h3>
+        <p style="color:#494453;font-size:14px;line-height:1.6;">Still chasing one. Not a cat owner yet, but I do have a running cat on my home page.</p>
+      </div>
+      <div class="fun-card">
+        <div style="font-size:28px;margin-bottom:8px;">💜</div>
+        <h3 style="font-family:'Literata',serif;font-size:16px;font-weight:700;color:#1e1927;margin-bottom:6px;">Favourite colour</h3>
+        <p style="color:#494453;font-size:14px;line-height:1.6;">Purple. Obviously. The entire website is purple. Did you not notice?</p>
+      </div>
+    </div>
+
+    <!-- Why this site -->
+    <div class="fade-up-4 fun-card mb-16 text-center" style="background:linear-gradient(135deg,#ede7f6,#f9f0ff);">
+      <div class="wiggle-anim inline-block text-4xl mb-4">💌</div>
+      <h2 style="font-family:'Literata',serif;font-size:20px;font-weight:700;color:#1e1927;margin-bottom:10px;">Why I built this</h2>
+      <p style="color:#494453;font-size:15px;line-height:1.8;max-width:480px;margin:0 auto;">
+        I kept forgetting which episode I was on, which book I'd finished, and which series made me feel things. 
+        So I built my own little tracker — just for me, exactly how I wanted it. 
+        No ads, no algorithms. Just my cozy little corner. 🌸
+      </p>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full py-16 flex flex-col items-center gap-4 px-6" style="background:#f9f0ff;">
+    <div style="font-family:'Literata',serif;font-size:20px;font-weight:700;color:#461599;">Ami's Little Corner</div>
+    <nav class="flex gap-6 flex-wrap justify-center">
+      <a class="text-[#494453] hover:text-[#461599] underline transition-all text-sm" href="home.html">Home</a>
+      <a class="text-[#494453] hover:text-[#461599] underline transition-all text-sm" href="index.html">Books</a>
+      <a class="text-[#494453] hover:text-[#461599] underline transition-all text-sm" href="series.html">Series</a>
+      <a class="text-[#494453] hover:text-[#461599] underline transition-all text-sm" href="schedule.html">Schedule</a>
+      <a class="text-[#494453] hover:text-[#461599] underline transition-all text-sm" href="about.html">About</a>
+    </nav>
+    <p class="text-sm" style="color:#7b7484;">© <span id="footer-year"></span> Ami's Little Corner. Keep tracking your joy. 💜</p>
+  </footer>
+
+  <!-- Mobile Bottom Nav -->
+   <div class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-surface-variant h-16 flex justify-around items-center px-4 z-50">
+    <a href="home.html" class="flex flex-col items-center text-on-surface-variant">
+      <span class="material-symbols-outlined">home</span>
+      <span class="text-[10px]">Home</span>
+    </a>
+    <a href="index.html" class="flex flex-col items-center text-on-surface-variant">
+      <span class="material-symbols-outlined">auto_stories</span>
+      <span class="text-[10px]">Books</span>
+    </a>
+    <a href="series.html" class="flex flex-col items-center text-on-surface-variant">
+      <span class="material-symbols-outlined">movie</span>
+      <span class="text-[10px]">Series</span>
+    </a>
+    <a href="schedule.html" class="flex flex-col items-center text-on-surface-variant">
+      <span class="material-symbols-outlined">calendar_today</span>
+      <span class="text-[10px]">Schedule</span>
+    </a>
+    <a href="about.html" class="flex flex-col items-center text-on-surface-variant">
+      <span class="material-symbols-outlined">favorite</span>
+      <span class="text-[10px]">About</span>
+    </a>
+</div>
+  
+
+  <script>
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
